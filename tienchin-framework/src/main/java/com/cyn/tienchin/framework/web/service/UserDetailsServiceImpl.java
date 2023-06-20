@@ -45,7 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("登录用户：{} 已被停用.", username);
             throw new ServiceException("对不起，您的账号：" + username + " 已停用");
         }
-
+        // TODO 这边似乎用的不是SpringSecurity的密码校验方式
         passwordService.validate(user);
 
         return createLoginUser(user);
