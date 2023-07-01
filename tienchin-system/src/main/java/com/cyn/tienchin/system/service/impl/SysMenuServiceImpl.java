@@ -1,30 +1,24 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.cyn.tienchin.common.constant.Constants;
+import com.cyn.tienchin.common.constant.UserConstants;
 import com.cyn.tienchin.common.core.domain.TreeSelect;
 import com.cyn.tienchin.common.core.domain.entity.SysMenu;
 import com.cyn.tienchin.common.core.domain.entity.SysRole;
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
 import com.cyn.tienchin.common.utils.SecurityUtils;
 import com.cyn.tienchin.common.utils.StringUtils;
-import com.cyn.tienchin.system.service.ISysMenuService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.cyn.tienchin.common.constant.Constants;
-import com.cyn.tienchin.common.constant.UserConstants;
 import com.cyn.tienchin.system.domain.vo.MetaVo;
 import com.cyn.tienchin.system.domain.vo.RouterVo;
 import com.cyn.tienchin.system.mapper.SysMenuMapper;
 import com.cyn.tienchin.system.mapper.SysRoleMapper;
 import com.cyn.tienchin.system.mapper.SysRoleMenuMapper;
+import com.cyn.tienchin.system.service.ISysMenuService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 菜单 业务层处理
@@ -147,6 +141,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
      */
     @Override
     public List<RouterVo> buildMenus(List<SysMenu> menus) {
+        // 初次进入方法的 menus 的 parentId 为0
         List<RouterVo> routers = new LinkedList<RouterVo>();
         for (SysMenu menu : menus) {
             RouterVo router = new RouterVo();
@@ -157,11 +152,13 @@ public class SysMenuServiceImpl implements ISysMenuService {
             router.setQuery(menu.getQuery());
             router.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon(), StringUtils.equals("1", menu.getIsCache()), menu.getPath()));
             List<SysMenu> cMenus = menu.getChildren();
+            //  二级菜单且有子菜单
             if (StringUtils.isNotEmpty(cMenus) && UserConstants.TYPE_DIR.equals(menu.getMenuType())) {
                 router.setAlwaysShow(true);
                 router.setRedirect("noRedirect");
                 router.setChildren(buildMenus(cMenus));
-            } else if (isMenuFrame(menu)) {
+            }
+            else if (isMenuFrame(menu)) {
                 router.setMeta(null);
                 List<RouterVo> childrenList = new ArrayList<RouterVo>();
                 RouterVo children = new RouterVo();
@@ -172,7 +169,8 @@ public class SysMenuServiceImpl implements ISysMenuService {
                 children.setQuery(menu.getQuery());
                 childrenList.add(children);
                 router.setChildren(childrenList);
-            } else if (menu.getParentId().intValue() == 0 && isInnerLink(menu)) {
+            }// 是否是内链
+            else if (menu.getParentId().intValue() == 0 && isInnerLink(menu)) {
                 router.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon()));
                 router.setPath("/");
                 List<RouterVo> childrenList = new ArrayList<RouterVo>();
@@ -318,7 +316,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
      */
     public String getRouteName(SysMenu menu) {
         String routerName = StringUtils.capitalize(menu.getPath());
-        // 非外链并且是一级目录（类型为目录）
+        // 非外链并且是一级目录（类型为菜单）
         if (isMenuFrame(menu)) {
             routerName = StringUtils.EMPTY;
         }
@@ -374,6 +372,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
      * @return 结果
      */
     public boolean isMenuFrame(SysMenu menu) {
+        // 一级菜单 && menuType为菜单 && 不属于外链
         return menu.getParentId().intValue() == 0 && UserConstants.TYPE_MENU.equals(menu.getMenuType())
                 && menu.getIsFrame().equals(UserConstants.NO_FRAME);
     }
@@ -385,6 +384,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
      * @return 结果
      */
     public boolean isInnerLink(SysMenu menu) {
+        // 是否是内链
         return menu.getIsFrame().equals(UserConstants.NO_FRAME) && StringUtils.ishttp(menu.getPath());
     }
 
@@ -411,6 +411,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
             SysMenu t = (SysMenu) iterator.next();
             // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
             if (t.getParentId() == parentId) {
+                // 递归查找t的子节点
                 recursionFn(list, t);
                 returnList.add(t);
             }
@@ -422,12 +423,13 @@ public class SysMenuServiceImpl implements ISysMenuService {
      * 递归列表
      *
      * @param list 分类表
-     * @param t    子节点
+     * @param t    需要被查询 是否存在子节点 的节点
      */
     private void recursionFn(List<SysMenu> list, SysMenu t) {
         // 得到子节点列表
         List<SysMenu> childList = getChildList(list, t);
         t.setChildren(childList);
+        // 遍历子节点列表 查询子节点的子节点
         for (SysMenu tChild : childList) {
             if (hasChild(list, tChild)) {
                 recursionFn(list, tChild);
@@ -439,15 +441,15 @@ public class SysMenuServiceImpl implements ISysMenuService {
      * 得到子节点列表
      */
     private List<SysMenu> getChildList(List<SysMenu> list, SysMenu t) {
-        List<SysMenu> tlist = new ArrayList<SysMenu>();
+        List<SysMenu> tList = new ArrayList<SysMenu>();
         Iterator<SysMenu> it = list.iterator();
         while (it.hasNext()) {
             SysMenu n = (SysMenu) it.next();
             if (n.getParentId().longValue() == t.getMenuId().longValue()) {
-                tlist.add(n);
+                tList.add(n);
             }
         }
-        return tlist;
+        return tList;
     }
 
     /**
