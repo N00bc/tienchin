@@ -1,21 +1,20 @@
 package com.cyn.tienchin.framework.web.service;
 
-import java.util.Set;
-
 import com.cyn.tienchin.common.core.domain.entity.SysRole;
 import com.cyn.tienchin.common.core.domain.model.LoginUser;
 import com.cyn.tienchin.common.utils.SecurityUtils;
 import com.cyn.tienchin.common.utils.StringUtils;
 import com.cyn.tienchin.framework.security.context.PermissionContextHolder;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.util.Set;
 
 /**
  * RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
  *
  * @author tienchin
  */
-@Service("ss")
+//@Service("ss")
 public class PermissionService {
     /**
      * 所有权限标识
