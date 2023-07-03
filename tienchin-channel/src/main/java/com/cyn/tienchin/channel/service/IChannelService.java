@@ -29,4 +29,11 @@ public interface IChannelService extends IService<Channel> {
      * @return
      */
     AjaxResult insertChannel(ChannelVo channelVo);
+
+    /**
+     * 更新渠道
+     * @param channelVo
+     * @return
+     */
+    AjaxResult updateChannel(ChannelVo channelVo);
 }

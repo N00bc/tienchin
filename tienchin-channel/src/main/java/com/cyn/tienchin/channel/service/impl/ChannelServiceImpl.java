@@ -59,4 +59,17 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
 
         return save(channel) ? AjaxResult.success("添加渠道成功") : AjaxResult.error("添加渠道失败");
     }
+
+    /**
+     * 更新渠道
+     *
+     * @param channelVo
+     * @return
+     */
+    @Override
+    public AjaxResult updateChannel(ChannelVo channelVo) {
+        Channel channel = new Channel();
+        BeanUtils.copyProperties(channelVo, channel);
+        return updateById(channel)?AjaxResult.success("更新成功"):AjaxResult.error("更新失败");
+    }
 }
