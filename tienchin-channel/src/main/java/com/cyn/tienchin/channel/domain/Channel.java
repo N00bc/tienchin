@@ -1,6 +1,7 @@
 package com.cyn.tienchin.channel.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.cyn.tienchin.common.annotation.Excel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,16 +23,20 @@ public class Channel implements Serializable {
      * 渠道id
      */
     @TableId(value = "channel_id", type = IdType.AUTO)
+    @Excel(name = "渠道编号", cellType = Excel.ColumnType.NUMERIC)
     private Integer channelId;
 
     /**
      * 渠道名
      */
+    @Excel(name = "渠道名称")
     private String channelName;
 
     /**
      * 渠道启用状态
+     * 0禁用 1正常
      */
+    @Excel(name = "渠道状态", readConverterExp = "1=正常,0=禁用")
     private Byte status;
 
     /**
@@ -42,15 +47,29 @@ public class Channel implements Serializable {
     /**
      * 渠道类型：1线上渠道 2线下渠道
      */
+    @Excel(name = "渠道类型", readConverterExp = "1=线上渠道,2=线下渠道")
     private Integer type;
-    @TableField(fill = FieldFill.INSERT )
+
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
+    /**
+     * 更新人
+     */
     @TableField(fill = FieldFill.UPDATE)
     private String updateBy;
 
+    /**
+     * 创建时间
+     */
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    /**
+     * 更新时间
+     */
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 

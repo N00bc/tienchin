@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.cyn.tienchin.channel.domain.Channel;
 import com.cyn.tienchin.channel.domain.vo.ChannelVo;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,4 +38,12 @@ public interface IChannelService extends IService<Channel> {
      * @return
      */
     AjaxResult updateChannel(ChannelVo channelVo);
+
+    /**
+     * 将Excel数据导入
+     * @param file
+     * @param updateSupport
+     * @return
+     */
+    AjaxResult importChannel(MultipartFile file, boolean updateSupport);
 }
