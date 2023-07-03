@@ -20,8 +20,9 @@ public interface IChannelService extends IService<Channel> {
     /**
      * 查询所有的渠道
      * @return
+     * @param channelVo
      */
-    List<Channel> selectChannelList();
+    List<Channel> selectChannelList(ChannelVo channelVo);
 
     /**
      * 新增渠道

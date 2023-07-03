@@ -31,11 +31,12 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
      * 查询所有的渠道
      *
      * @return
+     * @param channelVo
      */
     @Override
-    public List<Channel> selectChannelList() {
+    public List<Channel> selectChannelList(ChannelVo channelVo) {
 
-        return channelMapper.selectChannelList();
+        return channelMapper.selectChannelList(channelVo);
     }
 
     /**

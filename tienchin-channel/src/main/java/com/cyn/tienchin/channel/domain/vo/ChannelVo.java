@@ -28,8 +28,8 @@ public class ChannelVo extends BaseEntity {
      * 渠道启用状态 0禁用 1启用
      */
     @NotNull(message = "{channel.status.notnull}")
-    @Max(value = 1,message = "{channel.status.invalid}")
-    @Min(value = 0,message = "{channel.status.invalid}")
+    @Max(value = 1, message = "{channel.status.invalid}")
+    @Min(value = 0, message = "{channel.status.invalid}")
     private Byte status;
 
 
@@ -37,8 +37,8 @@ public class ChannelVo extends BaseEntity {
      * 渠道类型：1线上渠道 2线下渠道
      */
     @NotNull(message = "{channel.type.notnull}")
-    @Max(value = 2,message = "{channel.type.invalid}")
-    @Min(value = 1,message = "{channel.type.invalid}")
+    @Max(value = 2, message = "{channel.type.invalid}")
+    @Min(value = 1, message = "{channel.type.invalid}")
     private Integer type;
 
     public Integer getChannelId() {
@@ -71,5 +71,16 @@ public class ChannelVo extends BaseEntity {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "ChannelVo{" +
+                "channelId=" + channelId +
+                ", channelName='" + channelName + '\'' +
+                ", status=" + status +
+                ", type=" + type +
+                '}';
     }
 }

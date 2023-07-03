@@ -40,9 +40,9 @@ public class ChannelController extends BaseController {
      */
     @PreAuthorize("hasPermission('tienchin:channel:list')")
     @GetMapping("/list")
-    public TableDataInfo list() {
+    public TableDataInfo list(ChannelVo channelVo) {
         startPage();
-        List<Channel> list = channelService.selectChannelList();
+        List<Channel> list = channelService.selectChannelList(channelVo);
         return getDataTable(list);
     }
 
