@@ -2,6 +2,8 @@ package com.cyn.tienchin.channel.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cyn.tienchin.channel.domain.Channel;
+import com.cyn.tienchin.channel.domain.vo.ChannelVo;
+import com.cyn.tienchin.common.core.domain.AjaxResult;
 
 import java.util.List;
 
@@ -20,4 +22,11 @@ public interface IChannelService extends IService<Channel> {
      * @return
      */
     List<Channel> selectChannelList();
+
+    /**
+     * 新增渠道
+     * @param channelVo
+     * @return
+     */
+    AjaxResult insertChannel(ChannelVo channelVo);
 }

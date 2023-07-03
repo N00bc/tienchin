@@ -1,7 +1,9 @@
 package com.cyn.tienchin.framework.config;
 
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.cyn.tienchin.common.utils.StringUtils;
+import com.cyn.tienchin.framework.handler.TienChinMetaObjectHandler;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
@@ -105,6 +107,7 @@ public class MyBatisConfig {
         sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
         sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
+        sessionFactory.setGlobalConfig(new GlobalConfig().setBanner(false).setMetaObjectHandler(new TienChinMetaObjectHandler()));
         return sessionFactory.getObject();
     }
 }
