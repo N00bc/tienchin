@@ -37,7 +37,7 @@ public class Channel implements Serializable {
      * 0禁用 1正常
      */
     @Excel(name = "渠道状态", readConverterExp = "1=正常,0=禁用")
-    private Byte status;
+    private Integer status;
 
     /**
      * 备注信息
@@ -95,11 +95,11 @@ public class Channel implements Serializable {
         this.channelName = channelName;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

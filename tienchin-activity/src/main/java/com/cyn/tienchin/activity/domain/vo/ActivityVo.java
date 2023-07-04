@@ -23,10 +23,13 @@ public class ActivityVo extends BaseEntity {
     private String activityName;
 
     /**
-     * 渠道id
+     * 渠道名
+     */
+    private String channelName;
+    /**
+     * 渠道ID
      */
     private Integer channelId;
-
     /**
      * 活动简介
      */
@@ -65,7 +68,23 @@ public class ActivityVo extends BaseEntity {
     /**
      * 逻辑删除字段 0未删除 2已删除
      */
-    private String delFlag;
+    private Integer delFlag;
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public Integer getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(Integer channelId) {
+        this.channelId = channelId;
+    }
 
     public Integer getActivityId() {
         return activityId;
@@ -83,13 +102,6 @@ public class ActivityVo extends BaseEntity {
         this.activityName = activityName;
     }
 
-    public Integer getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(Integer channelId) {
-        this.channelId = channelId;
-    }
 
     public String getInfo() {
         return info;
@@ -147,11 +159,11 @@ public class ActivityVo extends BaseEntity {
         this.endTime = endTime;
     }
 
-    public String getDelFlag() {
+    public Integer getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(String delFlag) {
+    public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
     }
 

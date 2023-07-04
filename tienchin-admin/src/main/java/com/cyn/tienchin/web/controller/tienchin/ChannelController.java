@@ -65,7 +65,7 @@ public class ChannelController extends BaseController {
     }
 
     /**
-     * 修改保存角色
+     * 修改保存渠道
      */
     @PreAuthorize("hasPermission('tienchin:channel:edit')")
     @Log(title = "渠道管理", businessType = BusinessType.UPDATE)
