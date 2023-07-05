@@ -3,6 +3,8 @@ package com.cyn.tienchin.web.controller.tienchin;
 import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.domain.vo.ActivityVo;
 import com.cyn.tienchin.activity.service.IActivityService;
+import com.cyn.tienchin.channel.domain.Channel;
+import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.common.annotation.Log;
 import com.cyn.tienchin.common.core.controller.BaseController;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
@@ -35,6 +37,15 @@ import java.util.List;
 public class ActivityController extends BaseController {
     @Autowired
     private IActivityService activityService;
+    @Autowired
+    private IChannelService channelService;
+
+    @PreAuthorize("hasPermission('tienchin:activity:add')")
+    @GetMapping("/channel/list")
+    public AjaxResult channelList() {
+        List<Channel> list = channelService.list();
+        return AjaxResult.success(list);
+    }
 
     /**
      * 分页展示活动信息
@@ -45,7 +56,7 @@ public class ActivityController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(ActivityVo activityVo) {
         startPage();
-        List<Activity> list = activityService.selectActivityList(activityVo);
+        List<ActivityVo> list = activityService.selectActivityVoList(activityVo);
         return getDataTable(list);
     }
 
@@ -59,7 +70,6 @@ public class ActivityController extends BaseController {
     @Log(title = "活动管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody ActivityVo activityVo) {
-
         return activityService.insertActivity(activityVo);
 
     }

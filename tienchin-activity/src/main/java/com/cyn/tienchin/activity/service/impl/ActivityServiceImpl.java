@@ -1,20 +1,20 @@
 package com.cyn.tienchin.activity.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.domain.vo.ActivityVo;
 import com.cyn.tienchin.activity.mapper.ActivityMapper;
 import com.cyn.tienchin.activity.service.IActivityService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -36,14 +36,33 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
      * @return
      */
     @Override
-    public List<Activity> selectActivityList(ActivityVo activityVo) {
+    public List<ActivityVo> selectActivityVoList(ActivityVo activityVo) {
+        expireActivity();
         List<ActivityVo> activityVoList = activityMapper.selectActivityVoList(activityVo);
-        List<Activity> activityList = activityVoList.stream().map(vo -> {
-            Activity activity = new Activity();
-            BeanUtils.copyProperties(vo, activity);
-            return activity;
-        }).collect(Collectors.toList());
-        return activityList;
+        return activityVoList;
+    }
+
+    /**
+     * 将endTime > Date.now()的活动 status 属性置0
+     * UPDATE tienchin_activity
+     * SET STATUS = 0
+     * WHERE
+     * 	STATUS = 1
+     * 	AND endTime < Date.now()
+     * 	AND del_flag = 0
+     * @return
+     */
+    public boolean expireActivity() {
+        LambdaUpdateWrapper<Activity> lambdaUpdateWrapper = Wrappers.<Activity>lambdaUpdate()
+                .set(Activity::getStatus, 0)
+                .eq(Activity::getStatus, 1)
+                .lt(Activity::getEndTime, LocalDateTime.now());
+        return update(lambdaUpdateWrapper);
+    }
+
+    @Override
+    public List<Activity> selectActivityList(ActivityVo activityVo) {
+        return null;
     }
 
     /**
@@ -56,13 +75,6 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     public AjaxResult insertActivity(ActivityVo activityVo) {
         Activity activity = new Activity();
         BeanUtils.copyProperties(activityVo, activity);
-        LambdaQueryWrapper<Activity> lambdaQueryWrapper = Wrappers.<Activity>lambdaQuery().eq(Activity::getActivityName, activity.getActivityName());
-        Activity one = getOne(lambdaQueryWrapper);
-        // 是否存在同名方法
-        if (one != null) {
-            // 存在同名活动
-            return AjaxResult.error("存在未删除的同名活动,添加失败");
-        }
         return save(activity) ? AjaxResult.success("添加活动成功") : AjaxResult.error("添加活动失败");
     }
 

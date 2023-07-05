@@ -23,6 +23,13 @@ public interface IActivityService extends IService<Activity> {
      * @param activityVo
      * @return
      */
+    List<ActivityVo> selectActivityVoList(ActivityVo activityVo);
+
+    /**
+     *
+     * @param activityVo
+     * @return
+     */
     List<Activity> selectActivityList(ActivityVo activityVo);
 
     /**
