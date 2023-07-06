@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -39,8 +40,8 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     @Override
     public List<ActivityVo> selectActivityVoList(ActivityVo activityVo) {
         expireActivity();
-        List<ActivityVo> activityVos = activityMapper.selectActivityVoList(activityVo);
-        return activityVos;
+        List<ActivityVo> activityVoList = activityMapper.selectActivityVoList(activityVo);
+        return activityVoList;
     }
 
     /**
@@ -48,9 +49,10 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
      * UPDATE tienchin_activity
      * SET STATUS = 0
      * WHERE
-     * 	STATUS = 1
-     * 	AND endTime < Date.now()
-     * 	AND del_flag = 0
+     * STATUS = 1
+     * AND endTime < Date.now()
+     * AND del_flag = 0
+     *
      * @return
      */
     public boolean expireActivity() {
@@ -61,10 +63,6 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         return update(lambdaUpdateWrapper);
     }
 
-    @Override
-    public List<Activity> selectActivityList(ActivityVo activityVo) {
-        return null;
-    }
 
     /**
      * 新增活动
@@ -90,7 +88,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         Activity activity = new Activity();
         BeanUtils.copyProperties(activityVo, activity);
         String username = SecurityUtils.getUsername();
-        activityMapper.updateActivity(activity,LocalDateTime.now(),username);
+        activityMapper.updateActivity(activity, LocalDateTime.now(), username);
         return AjaxResult.success("修改成功");
     }
 

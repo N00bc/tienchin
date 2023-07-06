@@ -25,12 +25,6 @@ public interface IActivityService extends IService<Activity> {
      */
     List<ActivityVo> selectActivityVoList(ActivityVo activityVo);
 
-    /**
-     *
-     * @param activityVo
-     * @return
-     */
-    List<Activity> selectActivityList(ActivityVo activityVo);
 
     /**
      * 新增活动

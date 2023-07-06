@@ -1,6 +1,5 @@
 package com.cyn.tienchin.web.controller.tienchin;
 
-import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.domain.vo.ActivityVo;
 import com.cyn.tienchin.activity.service.IActivityService;
 import com.cyn.tienchin.activity.validator.AddGroup;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -124,27 +122,8 @@ public class ActivityController extends BaseController {
     @PreAuthorize("hasPermission('tienchin:activity:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, ActivityVo activityVo) {
-        List<Activity> list = activityService.selectActivityList(activityVo);
-        ExcelUtil<Activity> util = new ExcelUtil<Activity>(Activity.class);
+        List<ActivityVo> list = activityService.selectActivityVoList(activityVo);
+        ExcelUtil<ActivityVo> util = new ExcelUtil<ActivityVo>(ActivityVo.class);
         util.exportExcel(response, list, "活动数据");
     }
-
-    /**
-     * 活动导入模板excel
-     *
-     * @param response
-     */
-    @PostMapping("/importTemplate")
-    public void importTemplate(HttpServletResponse response) {
-        ExcelUtil<Activity> util = new ExcelUtil<Activity>(Activity.class);
-        util.importTemplateExcel(response, "活动数据");
-    }
-
-    @Log(title = "活动管理", businessType = BusinessType.IMPORT)
-    @PreAuthorize("hasPermission('tienchin:activity:import')")
-    @PostMapping("/importData")
-    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
-        return activityService.importActivity(file, updateSupport);
-    }
-
 }
