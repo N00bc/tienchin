@@ -8,6 +8,7 @@ import com.cyn.tienchin.activity.domain.vo.ActivityVo;
 import com.cyn.tienchin.activity.mapper.ActivityMapper;
 import com.cyn.tienchin.activity.service.IActivityService;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
+import com.cyn.tienchin.common.utils.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,7 +89,9 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     public AjaxResult updateActivity(ActivityVo activityVo) {
         Activity activity = new Activity();
         BeanUtils.copyProperties(activityVo, activity);
-        return updateById(activity) ? AjaxResult.success("修改成功") : AjaxResult.error("修改失败");
+        String username = SecurityUtils.getUsername();
+        activityMapper.updateActivity(activity,LocalDateTime.now(),username);
+        return AjaxResult.success("修改成功");
     }
 
     /**

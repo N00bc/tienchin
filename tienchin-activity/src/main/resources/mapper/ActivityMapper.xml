@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cyn.tienchin.activity.mapper.ActivityMapper">
+    <update id="updateActivity">
+        UPDATE tienchin_activity
+        <trim prefix="set" suffixOverrides=",">
+            <if test="activity.activityName != null">activity_name = #{activity.activityName},</if>
+            <if test="activity.channelId != null">channel_id = #{activity.channelId},</if>
+            <if test="activity.info != null">info = #{activity.info},</if>
+            <if test="activity.type != null">type = #{activity.type},</if>
+            <if test="activity.type == 1 and activity.discount != null">discount = #{activity.discount},voucher = null,</if>
+            <if test="activity.type == 2 and activity.voucher != null">voucher = #{activity.voucher},discount = null,</if>
+            <if test="activity.beginTime != null">begin_time = #{activity.beginTime},</if>
+            <if test="activity.endTime != null">end_time = #{activity.endTime},</if>
+            <if test="activity.remark != null">remark = #{activity.remark},</if>
+            <if test="activity.status == 0 and activity.endTime gt now ">`status` = 1,</if>
+            update_by = #{user},update_time = #{now}
+        </trim>
+        WHERE activity_id = #{activity.activityId}
+    </update>
 
 
     <select id="selectActivityVoList" resultType="com.cyn.tienchin.activity.domain.vo.ActivityVo">
