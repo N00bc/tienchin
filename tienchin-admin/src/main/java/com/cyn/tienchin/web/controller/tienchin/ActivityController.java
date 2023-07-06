@@ -2,8 +2,8 @@ package com.cyn.tienchin.web.controller.tienchin;
 
 import com.cyn.tienchin.activity.domain.vo.ActivityVo;
 import com.cyn.tienchin.activity.service.IActivityService;
-import com.cyn.tienchin.activity.validator.AddGroup;
-import com.cyn.tienchin.activity.validator.EditGroup;
+import com.cyn.tienchin.common.validator.AddGroup;
+import com.cyn.tienchin.common.validator.EditGroup;
 import com.cyn.tienchin.channel.domain.Channel;
 import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.common.annotation.Log;
@@ -90,8 +90,8 @@ public class ActivityController extends BaseController {
      * @param activityId
      * @return
      */
-    @GetMapping("/{activityId}")
     @PreAuthorize("hasPermission('tienchin:activity:query')")
+    @GetMapping("/{activityId}")
     public AjaxResult getInfo(@PathVariable("activityId") Integer activityId) {
         return AjaxResult.success(activityService.getById(activityId));
     }

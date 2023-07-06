@@ -1,4 +1,4 @@
-package com.cyn.tienchin.activity.validator;
+package com.cyn.tienchin.common.validator;
 
 /**
  * @author Godc

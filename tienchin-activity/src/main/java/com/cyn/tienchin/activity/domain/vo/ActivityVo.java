@@ -1,7 +1,7 @@
 package com.cyn.tienchin.activity.domain.vo;
 
-import com.cyn.tienchin.activity.validator.AddGroup;
-import com.cyn.tienchin.activity.validator.EditGroup;
+import com.cyn.tienchin.common.validator.AddGroup;
+import com.cyn.tienchin.common.validator.EditGroup;
 import com.cyn.tienchin.common.annotation.Excel;
 import com.cyn.tienchin.common.core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;

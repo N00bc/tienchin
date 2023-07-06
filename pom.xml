@@ -16,6 +16,7 @@
         <module>tienchin-common</module>
         <module>tienchin-channel</module>
         <module>tienchin-activity</module>
+        <module>tienchin-course</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -199,6 +200,12 @@
             <dependency>
                 <groupId>com.cyn</groupId>
                 <artifactId>tienchin-activity</artifactId>
+                <version>${tienchin.version}</version>
+            </dependency>
+            <!--课程管理-->
+            <dependency>
+                <groupId>com.cyn</groupId>
+                <artifactId>tienchin-course</artifactId>
                 <version>${tienchin.version}</version>
             </dependency>
             <!--mybatis plus code generator-->
