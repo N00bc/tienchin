@@ -30,7 +30,7 @@ public class ChannelVo extends BaseEntity {
     @NotNull(message = "{channel.status.notnull}")
     @Max(value = 1, message = "{channel.status.invalid}")
     @Min(value = 0, message = "{channel.status.invalid}")
-    private Byte status;
+    private Integer status;
 
 
     /**
@@ -57,11 +57,11 @@ public class ChannelVo extends BaseEntity {
         this.channelName = channelName;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

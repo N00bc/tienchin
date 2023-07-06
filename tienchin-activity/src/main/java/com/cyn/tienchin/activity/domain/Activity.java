@@ -104,6 +104,7 @@ public class Activity implements Serializable {
     /**
      * 逻辑删除字段 0未删除 2已删除
      */
+    @TableLogic
     private String delFlag;
 
     public Integer getActivityId() {

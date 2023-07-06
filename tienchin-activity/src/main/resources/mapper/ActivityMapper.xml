@@ -4,10 +4,24 @@
 
 
     <select id="selectActivityVoList" resultType="com.cyn.tienchin.activity.domain.vo.ActivityVo">
-        SELECT ta.*,tc.channel_name
+        SELECT ta.*, tc.channel_name
         FROM tienchin_activity ta,
-             tienchin_channel tc
+        tienchin_channel tc
         WHERE ta.del_flag = 0
-          AND ta.channel_id = tc.channel_id
+        AND tc.del_flag = 0
+        AND ta.channel_id = tc.channel_id
+        <if test="activityVo.activityName != null">
+            AND ta.activity_name LIKE CONCAT('%',#{activityVo.activityName},'%')
+        </if>
+        <if test="activityVo.channelId != null">
+            AND ta.channel_id = #{activityVo.channelId}
+        </if>
+
+        <if test="activityVo.type != null">
+            AND ta.type = #{activityVo.type}
+        </if>
+        <if test="activityVo.status != null">
+            AND ta.status = #{activityVo.status}
+        </if>
     </select>
 </mapper>

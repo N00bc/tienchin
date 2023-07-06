@@ -3,6 +3,8 @@ package com.cyn.tienchin.web.controller.tienchin;
 import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.domain.vo.ActivityVo;
 import com.cyn.tienchin.activity.service.IActivityService;
+import com.cyn.tienchin.activity.validator.AddGroup;
+import com.cyn.tienchin.activity.validator.EditGroup;
 import com.cyn.tienchin.channel.domain.Channel;
 import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.common.annotation.Log;
@@ -69,7 +71,7 @@ public class ActivityController extends BaseController {
     @PreAuthorize("hasPermission('tienchin:activity:add')")
     @Log(title = "活动管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody ActivityVo activityVo) {
+    public AjaxResult add(@Validated(AddGroup.class) @RequestBody ActivityVo activityVo) {
         return activityService.insertActivity(activityVo);
 
     }
@@ -80,7 +82,7 @@ public class ActivityController extends BaseController {
     @PreAuthorize("hasPermission('tienchin:activity:edit')")
     @Log(title = "活动管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody ActivityVo activityVo) {
+    public AjaxResult edit(@Validated(EditGroup.class) @RequestBody ActivityVo activityVo) {
         return activityService.updateActivity(activityVo);
     }
 

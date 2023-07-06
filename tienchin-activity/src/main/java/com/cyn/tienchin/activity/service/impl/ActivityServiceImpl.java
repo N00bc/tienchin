@@ -38,8 +38,8 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     @Override
     public List<ActivityVo> selectActivityVoList(ActivityVo activityVo) {
         expireActivity();
-        List<ActivityVo> activityVoList = activityMapper.selectActivityVoList(activityVo);
-        return activityVoList;
+        List<ActivityVo> activityVos = activityMapper.selectActivityVoList(activityVo);
+        return activityVos;
     }
 
     /**
@@ -79,7 +79,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     }
 
     /**
-     * 更新活动
+     * 修改活动
      *
      * @param activityVo
      * @return
@@ -88,7 +88,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     public AjaxResult updateActivity(ActivityVo activityVo) {
         Activity activity = new Activity();
         BeanUtils.copyProperties(activityVo, activity);
-        return updateById(activity) ? AjaxResult.success("更新成功") : AjaxResult.error("更新失败");
+        return updateById(activity) ? AjaxResult.success("修改成功") : AjaxResult.error("修改失败");
     }
 
     /**

@@ -5,7 +5,7 @@
     <select id="selectChannelList" resultType="com.cyn.tienchin.channel.domain.Channel">
         SELECT * FROM tienchin_channel WHERE del_flag = 0
         <if test="channelVo.channelName != null">
-            AND channel_name LIKE #{channelVo.channelName}
+            AND channel_name LIKE CONCAT('%',#{channelVo.channelName},'%')
         </if>
         <if test="channelVo.type != null">
             AND type = #{channelVo.type}

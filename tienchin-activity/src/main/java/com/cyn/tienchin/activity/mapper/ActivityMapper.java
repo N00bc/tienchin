@@ -3,6 +3,7 @@ package com.cyn.tienchin.activity.mapper;
 import com.cyn.tienchin.activity.domain.Activity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cyn.tienchin.activity.domain.vo.ActivityVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,7 +22,6 @@ public interface ActivityMapper extends BaseMapper<Activity> {
      * @param activityVo
      * @return
      */
-    List<ActivityVo> selectActivityVoList(ActivityVo activityVo);
+    List<ActivityVo> selectActivityVoList(@Param("activityVo") ActivityVo activityVo);
 
-    List<Activity> selectActivityList(ActivityVo activityVo);
 }
