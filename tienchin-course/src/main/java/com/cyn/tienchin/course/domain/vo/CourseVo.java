@@ -1,5 +1,6 @@
 package com.cyn.tienchin.course.domain.vo;
 
+import com.cyn.tienchin.common.annotation.Excel;
 import com.cyn.tienchin.common.core.domain.BaseEntity;
 import com.cyn.tienchin.common.validator.AddGroup;
 import com.cyn.tienchin.common.validator.EditGroup;
@@ -18,6 +19,7 @@ public class CourseVo extends BaseEntity {
      * 课程id
      */
     @NotNull(message = "{course.courseId.notnull}",groups = EditGroup.class)
+    @Excel(name = "课程id")
     private Integer courseId;
 
     /**
@@ -25,6 +27,7 @@ public class CourseVo extends BaseEntity {
      */
     @NotNull(message = "{course.courseName.notnull}",groups = {EditGroup.class, AddGroup.class})
     @Size(min = 0, max = 30, message = "{course.courseName.size}", groups = {EditGroup.class, AddGroup.class})
+    @Excel(name = "课程名")
     private String courseName;
 
     /**
@@ -33,6 +36,7 @@ public class CourseVo extends BaseEntity {
     @NotNull(message = "{course.type.notnull}",groups = {EditGroup.class, AddGroup.class})
     @Max(value = 3, message = "{course.type.invalid}", groups = {EditGroup.class, AddGroup.class})
     @Min(value = 1, message = "{course.type.invalid}", groups = {EditGroup.class, AddGroup.class})
+    @Excel(name = "课程类型",readConverterExp = "1=舞蹈类,2=游泳类,3=拳击类")
     private Integer type;
 
     /**
@@ -40,6 +44,7 @@ public class CourseVo extends BaseEntity {
      */
     @NotNull(message = "{course.price.notnull}",groups = {EditGroup.class, AddGroup.class})
     @Min(value = 0, message = "{course.price.invalid}", groups = {EditGroup.class, AddGroup.class})
+    @Excel(name = "课程价格")
     private BigDecimal price;
 
     @JsonIgnore
@@ -53,6 +58,7 @@ public class CourseVo extends BaseEntity {
     @NotNull(message = "{course.apply.notnull}",groups = {EditGroup.class, AddGroup.class})
     @Max(value = 4, message = "{course.apply.invalid}", groups = {EditGroup.class, AddGroup.class})
     @Min(value = 1, message = "{course.apply.invalid}", groups = {EditGroup.class, AddGroup.class})
+    @Excel(name = "适用人群",readConverterExp = "1=中小学生,2=上班族,3=小白,4=健身达人")
     private Integer apply;
 
     /**
@@ -60,6 +66,7 @@ public class CourseVo extends BaseEntity {
      */
     @NotBlank(message = "{course.info.notblank}", groups = {EditGroup.class, AddGroup.class})
     @Size(min = 0, max = 255, message = "{course.info.size}", groups = {EditGroup.class, AddGroup.class})
+    @Excel(name = "课程简介")
     private String info;
 
     /**

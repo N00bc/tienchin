@@ -5,6 +5,7 @@ import com.cyn.tienchin.common.core.controller.BaseController;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.page.TableDataInfo;
 import com.cyn.tienchin.common.enums.BusinessType;
+import com.cyn.tienchin.common.utils.poi.ExcelUtil;
 import com.cyn.tienchin.common.validator.AddGroup;
 import com.cyn.tienchin.common.validator.EditGroup;
 import com.cyn.tienchin.course.domain.vo.CourseVo;
@@ -14,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -89,6 +91,20 @@ public class CourseController extends BaseController {
     public AjaxResult remove(@PathVariable("courseIds") Integer[] courseIds) {
         logger.info("courseIds:{}", courseIds);
         return AjaxResult.success(courseService.removeBatchByIds(new ArrayList<>(Arrays.asList(courseIds))));
+    }
+    /**
+     * 导出为Excel
+     *
+     * @param response
+     * @param courseVo
+     */
+    @Log(title = "课程管理", businessType = BusinessType.EXPORT)
+    @PreAuthorize("hasPermission('tienchin:course:export')")
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, CourseVo courseVo) {
+        List<CourseVo> list = courseService.selectCourseVoList(courseVo);
+        ExcelUtil<CourseVo> util = new ExcelUtil<CourseVo>(CourseVo.class);
+        util.exportExcel(response, list, "课程数据");
     }
 
 }
