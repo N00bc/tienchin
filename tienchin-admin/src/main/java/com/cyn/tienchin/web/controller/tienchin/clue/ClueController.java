@@ -13,6 +13,7 @@ import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.page.TableDataInfo;
 import com.cyn.tienchin.common.enums.BusinessType;
 import com.cyn.tienchin.common.validator.AddGroup;
+import com.cyn.tienchin.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +38,8 @@ public class ClueController extends BaseController {
     private IChannelService channelService;
     @Autowired
     private IActivityService activityService;
+    @Autowired
+    private ISysUserService sysUserService;
 
     /**
      * 新增线索
@@ -85,5 +88,17 @@ public class ClueController extends BaseController {
         startPage();
         List<ClueSummary> list = clueService.selectClueSummaryList();
         return getDataTable(list);
+    }
+
+    /**
+     * 根据部门id查询部门员工信息
+     * @param deptId
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:clue:list')")
+    @GetMapping("/users/{deptId}")
+    public AjaxResult getUserListByDeptId(@PathVariable("deptId")Long deptId){
+
+        return sysUserService.getUserByDeptId(deptId);
     }
 }

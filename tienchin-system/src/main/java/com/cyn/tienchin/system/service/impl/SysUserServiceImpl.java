@@ -1,15 +1,19 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.validation.Validator;
-
+import com.cyn.tienchin.common.annotation.DataScope;
+import com.cyn.tienchin.common.constant.UserConstants;
+import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.domain.entity.SysRole;
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
+import com.cyn.tienchin.common.exception.ServiceException;
 import com.cyn.tienchin.common.utils.SecurityUtils;
 import com.cyn.tienchin.common.utils.StringUtils;
 import com.cyn.tienchin.common.utils.bean.BeanValidators;
+import com.cyn.tienchin.common.utils.spring.SpringUtils;
+import com.cyn.tienchin.system.domain.SysPost;
+import com.cyn.tienchin.system.domain.SysUserPost;
+import com.cyn.tienchin.system.domain.SysUserRole;
+import com.cyn.tienchin.system.mapper.*;
 import com.cyn.tienchin.system.service.ISysConfigService;
 import com.cyn.tienchin.system.service.ISysUserService;
 import org.slf4j.Logger;
@@ -18,18 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import com.cyn.tienchin.common.annotation.DataScope;
-import com.cyn.tienchin.common.constant.UserConstants;
-import com.cyn.tienchin.common.exception.ServiceException;
-import com.cyn.tienchin.common.utils.spring.SpringUtils;
-import com.cyn.tienchin.system.domain.SysPost;
-import com.cyn.tienchin.system.domain.SysUserPost;
-import com.cyn.tienchin.system.domain.SysUserRole;
-import com.cyn.tienchin.system.mapper.SysPostMapper;
-import com.cyn.tienchin.system.mapper.SysRoleMapper;
-import com.cyn.tienchin.system.mapper.SysUserMapper;
-import com.cyn.tienchin.system.mapper.SysUserPostMapper;
-import com.cyn.tienchin.system.mapper.SysUserRoleMapper;
+
+import javax.validation.Validator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户 业务层处理
@@ -488,5 +485,17 @@ public class SysUserServiceImpl implements ISysUserService {
             successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
         }
         return successMsg.toString();
+    }
+
+    /**
+     * 根据部门id查询员工
+     *
+     * @param deptId
+     * @return
+     */
+    @Override
+    public AjaxResult getUserByDeptId(Long deptId) {
+        List<SysUser> userList = userMapper.getUserByDeptId(deptId);
+        return AjaxResult.success(userList);
     }
 }

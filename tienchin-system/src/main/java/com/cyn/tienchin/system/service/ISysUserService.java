@@ -1,8 +1,9 @@
 package com.cyn.tienchin.system.service;
 
-import java.util.List;
-
+import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
+
+import java.util.List;
 
 /**
  * 用户 业务层
@@ -203,4 +204,11 @@ public interface ISysUserService {
      * @return 结果
      */
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
+
+    /**
+     * 根据部门id查询员工
+     * @param deptId
+     * @return
+     */
+    AjaxResult getUserByDeptId(Long deptId);
 }

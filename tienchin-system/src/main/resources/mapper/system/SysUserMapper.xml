@@ -268,4 +268,11 @@
         </foreach>
     </delete>
 
-</mapper> 
+    <select id="getUserByDeptId" resultMap="SysUserResult">
+        SELECT su.user_id, su.nick_name, su.dept_id, su.user_name
+        FROM sys_user su,
+             sys_dept sd
+        WHERE su.dept_id = sd.dept_id
+          AND (find_in_set(#{deptId}, sd.ancestors) OR sd.dept_id = #{deptId})
+    </select>
+</mapper>
