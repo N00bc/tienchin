@@ -104,6 +104,7 @@ public class ChannelController extends BaseController {
 
     /**
      * 导出模板
+     *
      * @param response
      * @param channelVo
      */
@@ -118,6 +119,7 @@ public class ChannelController extends BaseController {
 
     /**
      * 渠道导入模板excel
+     *
      * @param response
      */
     @PostMapping("/importTemplate")
@@ -125,10 +127,11 @@ public class ChannelController extends BaseController {
         ExcelUtil<Channel> util = new ExcelUtil<Channel>(Channel.class);
         util.importTemplateExcel(response, "渠道数据");
     }
+
     @Log(title = "渠道管理", businessType = BusinessType.IMPORT)
     @PreAuthorize("hasPermission('tienchin:channel:import')")
     @PostMapping("/importData")
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
-        return channelService.importChannel(file,updateSupport);
+        return channelService.importChannel(file, updateSupport);
     }
 }

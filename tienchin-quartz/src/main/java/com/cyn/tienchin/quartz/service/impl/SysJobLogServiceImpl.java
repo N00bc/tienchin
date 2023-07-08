@@ -1,12 +1,13 @@
 package com.cyn.tienchin.quartz.service.impl;
 
-import java.util.List;
-
 import com.cyn.tienchin.quartz.domain.SysJobLog;
 import com.cyn.tienchin.quartz.mapper.SysJobLogMapper;
 import com.cyn.tienchin.quartz.service.ISysJobLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 定时任务调度日志信息 服务层
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysJobLogServiceImpl implements ISysJobLogService {
     @Autowired
     private SysJobLogMapper jobLogMapper;

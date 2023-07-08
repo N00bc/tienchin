@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author cyn
@@ -19,6 +19,7 @@ public interface ICourseService extends IService<Course> {
 
     /**
      * 查询课程列表
+     *
      * @param courseVo
      * @return
      */
@@ -26,6 +27,7 @@ public interface ICourseService extends IService<Course> {
 
     /**
      * 插入课程
+     *
      * @param courseVo
      * @return
      */
@@ -33,6 +35,7 @@ public interface ICourseService extends IService<Course> {
 
     /**
      * 更新课程信息
+     *
      * @param courseVo
      * @return
      */

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author cyn
@@ -20,6 +20,7 @@ public interface IActivityService extends IService<Activity> {
 
     /**
      * 查询活动信息
+     *
      * @param activityVo
      * @return
      */
@@ -28,6 +29,7 @@ public interface IActivityService extends IService<Activity> {
 
     /**
      * 新增活动
+     *
      * @param activityVo
      * @return
      */
@@ -35,6 +37,7 @@ public interface IActivityService extends IService<Activity> {
 
     /**
      * 更新活动
+     *
      * @param activityVo
      * @return
      */
@@ -42,6 +45,7 @@ public interface IActivityService extends IService<Activity> {
 
     /**
      * 导入活动excel
+     *
      * @param file
      * @param updateSupport
      * @return

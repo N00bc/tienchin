@@ -19,8 +19,8 @@ import java.util.Collections;
 public class TestChannel {
     @Test
     void testGenerate() {
-        String outPath = "F:\\Code\\program\\TienChin\\tienchin-channel\\src\\main\\java";
-        String path = "F:\\Code\\program\\TienChin\\tienchin-channel\\src\\main\\resources\\mappers";
+        String outPath = "F:\\Code\\program\\TienChin\\tienchin-clue\\src\\main\\java";
+        String path = "F:\\Code\\program\\TienChin\\tienchin-clue\\src\\main\\resources\\mapper";
         FastAutoGenerator.create("jdbc:mysql://myvm:3306/tienchin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8", "root", "1234")
                 .globalConfig(builder -> {
                     builder.author("cyn") // 设置作者
@@ -39,11 +39,11 @@ public class TestChannel {
                 }))
                 .packageConfig(builder -> {
                     builder.parent("com.cyn.tienchin") // 设置父包名
-                            .moduleName("channel") // 设置父包模块名
+                            .moduleName("clue") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, path)); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("tienchin_channel") // 设置需要生成的表名
+                    builder.addInclude("tienchin_clue", "tienchin_assign", "tienchin_follow_record") // 设置需要生成的表名
                             .addTablePrefix("tienchin"); // 设置过滤表前缀
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板

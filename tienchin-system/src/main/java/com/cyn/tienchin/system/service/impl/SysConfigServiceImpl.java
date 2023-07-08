@@ -13,6 +13,7 @@ import com.cyn.tienchin.system.mapper.SysConfigMapper;
 import com.cyn.tienchin.system.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysConfigServiceImpl implements ISysConfigService {
     @Autowired
     private SysConfigMapper configMapper;

@@ -40,6 +40,11 @@ public class ActivityController extends BaseController {
     @Autowired
     private IChannelService channelService;
 
+    /**
+     * 活动中需要获取渠道属性值
+     *
+     * @return
+     */
     @PreAuthorize("hasPermission('tienchin:activity:add')")
     @GetMapping("/channel/list")
     public AjaxResult channelList() {

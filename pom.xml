@@ -17,6 +17,7 @@
         <module>tienchin-channel</module>
         <module>tienchin-activity</module>
         <module>tienchin-course</module>
+        <module>tienchin-clue</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -175,6 +176,12 @@
             <dependency>
                 <groupId>com.cyn</groupId>
                 <artifactId>tienchin-system</artifactId>
+                <version>${tienchin.version}</version>
+            </dependency>
+            <!-- 线索模块-->
+            <dependency>
+                <groupId>com.cyn</groupId>
+                <artifactId>tienchin-clue</artifactId>
                 <version>${tienchin.version}</version>
             </dependency>
 

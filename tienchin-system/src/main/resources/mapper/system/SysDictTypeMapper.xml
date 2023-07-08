@@ -61,7 +61,9 @@
     </select>
 
     <delete id="deleteDictTypeById" parameterType="Long">
-        delete from sys_dict_type where dict_id = #{dictId}
+        delete
+        from sys_dict_type
+        where dict_id = #{dictId}
     </delete>
 
     <delete id="deleteDictTypeByIds" parameterType="Long">

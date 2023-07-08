@@ -21,7 +21,7 @@ public class ActivityVo extends BaseEntity {
      * id
      */
     @NotNull(groups = EditGroup.class)
-    @Excel(name = "活动Id",sort = 1)
+    @Excel(name = "活动Id", sort = 1)
     private Integer activityId;
 
     /**
@@ -29,13 +29,13 @@ public class ActivityVo extends BaseEntity {
      */
     @NotBlank(message = "{activity.activityName.notblank}", groups = {EditGroup.class, AddGroup.class})
     @Size(min = 0, max = 30, message = "{activity.activityName.size}", groups = {EditGroup.class, AddGroup.class})
-    @Excel(name = "活动名称",sort = 2)
+    @Excel(name = "活动名称", sort = 2)
     private String activityName;
 
     /**
      * 渠道名
      */
-    @Excel(name = "渠道名称",sort = 3)
+    @Excel(name = "渠道名称", sort = 3)
     private String channelName;
     /**
      * 渠道ID
@@ -47,14 +47,14 @@ public class ActivityVo extends BaseEntity {
      */
     @NotBlank(message = "{activity.info.notblank}", groups = {EditGroup.class, AddGroup.class})
     @Size(min = 0, max = 255, message = "{activity.info.size}", groups = {EditGroup.class, AddGroup.class})
-    @Excel(name = "活动简介",sort = 8)
+    @Excel(name = "活动简介", sort = 8)
     private String info;
 
     /**
      * 活动类型 1折扣券 2代金券
      */
     @NotNull(message = "{activity.type.notnull}", groups = {EditGroup.class, AddGroup.class})
-    @Excel(name = "活动类型",readConverterExp = "1=折扣券,2=代金券",sort = 4)
+    @Excel(name = "活动类型", readConverterExp = "1=折扣券,2=代金券", sort = 4)
     private Byte type;
 
     /**
@@ -62,14 +62,14 @@ public class ActivityVo extends BaseEntity {
      */
     @Max(value = 10, message = "{activity.discount.invalid}", groups = {EditGroup.class, AddGroup.class})
     @Min(value = 0, message = "{activity.discount.invalid}", groups = {EditGroup.class, AddGroup.class})
-    @Excel(name = "折扣券",sort = 5)
+    @Excel(name = "折扣券", sort = 5)
     private Double discount;
 
     /**
      * 代金券
      */
     @Min(value = 0, message = "{activity.voucher.invalid}", groups = {EditGroup.class, AddGroup.class})
-    @Excel(name = "代金券",sort = 6)
+    @Excel(name = "代金券", sort = 6)
     private Double voucher;
 
     /**
@@ -77,7 +77,7 @@ public class ActivityVo extends BaseEntity {
      */
     @Max(value = 1, message = "{{activity.status.invalid}}", groups = {EditGroup.class, AddGroup.class})
     @Min(value = 0, message = "{activity.status.invalid}", groups = {EditGroup.class, AddGroup.class})
-    @Excel(name = "活动状态",sort = 7,readConverterExp = "1=正常,0=过期")
+    @Excel(name = "活动状态", sort = 7, readConverterExp = "1=正常,0=过期")
     private Byte status;
 
     /**
@@ -99,7 +99,7 @@ public class ActivityVo extends BaseEntity {
     /**
      * 逻辑删除字段 0未删除 2已删除
      */
-    @Excel(name = "是否删除",readConverterExp = "0=未删除,2=已删除")
+    @Excel(name = "是否删除", readConverterExp = "0=未删除,2=已删除")
     private Integer delFlag;
 
     public void setChannelName(String channelName) {

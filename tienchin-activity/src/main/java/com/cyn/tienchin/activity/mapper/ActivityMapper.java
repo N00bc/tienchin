@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author cyn
@@ -20,6 +20,7 @@ public interface ActivityMapper extends BaseMapper<Activity> {
 
     /**
      * 根据字段查询活动列表
+     *
      * @param activityVo
      * @return
      */
@@ -27,9 +28,10 @@ public interface ActivityMapper extends BaseMapper<Activity> {
 
     /**
      * 更新Activity
+     *
      * @param activity
      * @param username
      */
-    void updateActivity(@Param("activity") Activity activity, @Param("now") LocalDateTime now,@Param("user") String username);
+    void updateActivity(@Param("activity") Activity activity, @Param("now") LocalDateTime now, @Param("user") String username);
 
 }

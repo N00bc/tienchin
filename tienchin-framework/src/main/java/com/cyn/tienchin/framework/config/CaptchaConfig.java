@@ -18,6 +18,7 @@ import static com.google.code.kaptcha.Constants.*;
 public class CaptchaConfig {
     /**
      * 字符串型验证码生成器
+     *
      * @return
      */
     @Bean(name = "captchaProducer")
@@ -49,6 +50,7 @@ public class CaptchaConfig {
 
     /**
      * 数学型验证码生成器
+     *
      * @return
      */
     @Bean(name = "captchaProducerMath")

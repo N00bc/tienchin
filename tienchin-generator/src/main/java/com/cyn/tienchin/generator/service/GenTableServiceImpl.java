@@ -44,6 +44,7 @@ import com.cyn.tienchin.generator.util.VelocityUtils;
  * @author tienchin
  */
 @Service
+@Transactional
 public class GenTableServiceImpl implements IGenTableService {
     private static final Logger log = LoggerFactory.getLogger(GenTableServiceImpl.class);
 

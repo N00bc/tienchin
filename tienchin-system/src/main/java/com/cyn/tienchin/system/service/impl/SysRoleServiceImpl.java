@@ -32,6 +32,7 @@ import com.cyn.tienchin.system.mapper.SysUserRoleMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysRoleServiceImpl implements ISysRoleService {
     @Autowired
     private SysRoleMapper roleMapper;

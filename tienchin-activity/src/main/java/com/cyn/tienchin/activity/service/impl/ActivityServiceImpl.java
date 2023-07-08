@@ -12,11 +12,11 @@ import com.cyn.tienchin.common.utils.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
  * @since 2023-07-04
  */
 @Service
+@Transactional
 public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> implements IActivityService {
     @Autowired
     private ActivityMapper activityMapper;

@@ -14,7 +14,7 @@ import java.util.Set;
  *
  * @author tienchin
  */
-//@Service("ss")
+//@Service @Transactional("ss")
 public class PermissionService {
     /**
      * 所有权限标识

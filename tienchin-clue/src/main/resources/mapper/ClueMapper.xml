@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyn.tienchin.clue.mapper.ClueMapper">
+
+    <!--需要考虑到线索被转派出去且无人认领所以需要左连接-->
+    <select id="selectClueSummaryList" resultType="com.cyn.tienchin.clue.domain.ClueSummary">
+        SELECT tclue.clue_id,
+               tclue.customer_name,
+               tchannel.channel_name,
+               tclue.phone_number,
+               tclue.status,
+               tassign.user_name AS owner,
+               tclue.create_by,
+               tclue.create_time,
+               tclue.next_time
+        FROM tienchin_clue tclue
+                 LEFT JOIN tienchin_channel tchannel
+                           ON tclue.channel_id = tchannel.channel_id
+                 LEFT JOIN tienchin_assign tassign
+                           ON tclue.clue_id = tassign.assign_id
+                               AND tassign.latest = 1
+    </select>
+</mapper>

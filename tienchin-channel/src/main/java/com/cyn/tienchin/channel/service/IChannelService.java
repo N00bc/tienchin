@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author cyn
@@ -20,13 +20,15 @@ public interface IChannelService extends IService<Channel> {
 
     /**
      * 查询所有的渠道
-     * @return
+     *
      * @param channelVo
+     * @return
      */
     List<Channel> selectChannelList(ChannelVo channelVo);
 
     /**
      * 新增渠道
+     *
      * @param channelVo
      * @return
      */
@@ -34,6 +36,7 @@ public interface IChannelService extends IService<Channel> {
 
     /**
      * 更新渠道
+     *
      * @param channelVo
      * @return
      */
@@ -41,6 +44,7 @@ public interface IChannelService extends IService<Channel> {
 
     /**
      * 将Excel数据导入
+     *
      * @param file
      * @param updateSupport
      * @return

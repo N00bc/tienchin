@@ -20,11 +20,13 @@ public class TienChinMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        logger.info("自动添加创建时间和创建人");
         // 自动添加创建时间
         this.strictInsertFill(metaObject, "createTime", LocalDateTime::now, LocalDateTime.class);
         // 自动添加创建人
         this.strictInsertFill(metaObject, "createBy", SecurityUtils::getUsername, String.class);
+        // 自动添加跟进时间 默认是在一天之后
+        this.strictInsertFill(metaObject, "nextTime", () -> LocalDateTime.now().plusDays(1L), LocalDateTime.class);
+
     }
 
     @Override

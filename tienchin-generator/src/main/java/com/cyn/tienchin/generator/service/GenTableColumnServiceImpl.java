@@ -1,12 +1,13 @@
 package com.cyn.tienchin.generator.service;
 
-import java.util.List;
-
 import com.cyn.tienchin.common.core.text.Convert;
+import com.cyn.tienchin.generator.domain.GenTableColumn;
 import com.cyn.tienchin.generator.mapper.GenTableColumnMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cyn.tienchin.generator.domain.GenTableColumn;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 业务字段 服务层实现
@@ -14,6 +15,7 @@ import com.cyn.tienchin.generator.domain.GenTableColumn;
  * @author tienchin
  */
 @Service
+@Transactional
 public class GenTableColumnServiceImpl implements IGenTableColumnService {
     @Autowired
     private GenTableColumnMapper genTableColumnMapper;

@@ -32,19 +32,26 @@ values (101, 100, '0,100', '深圳总公司', 1, 'TienChin', '15888888888', 'ry@
 insert into sys_dept
 values (102, 100, '0,100', '长沙分公司', 2, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
 insert into sys_dept
-values (103, 101, '0,100,101', '研发部门', 1, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (103, 101, '0,100,101', '研发部门', 1, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 insert into sys_dept
-values (104, 101, '0,100,101', '市场部门', 2, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (104, 101, '0,100,101', '市场部门', 2, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 insert into sys_dept
-values (105, 101, '0,100,101', '测试部门', 3, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (105, 101, '0,100,101', '测试部门', 3, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 insert into sys_dept
-values (106, 101, '0,100,101', '财务部门', 4, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (106, 101, '0,100,101', '财务部门', 4, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 insert into sys_dept
-values (107, 101, '0,100,101', '运维部门', 5, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (107, 101, '0,100,101', '运维部门', 5, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 insert into sys_dept
-values (108, 102, '0,100,102', '市场部门', 1, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (108, 102, '0,100,102', '市场部门', 1, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 insert into sys_dept
-values (109, 102, '0,100,102', '财务部门', 2, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '', null);
+values (109, 102, '0,100,102', '财务部门', 2, 'TienChin', '15888888888', 'ry@qq.com', '0', '0', 'admin', sysdate(), '',
+        null);
 
 
 -- ----------------------------
@@ -197,7 +204,8 @@ insert into sys_menu
 values ('3', '系统工具', '0', '3', 'tool', null, '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', sysdate(), '', null,
         '系统工具目录');
 insert into sys_menu
-values ('4', 'TienChin官网', '0', '4', 'http://tienchin.vip', null, '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', sysdate(), '',
+values ('4', 'TienChin官网', '0', '4', 'http://tienchin.vip', null, '', 0, 0, 'M', '0', '0', '', 'guide', 'admin',
+        sysdate(), '',
         null, 'TienChin官网地址');
 -- 二级菜单
 insert into sys_menu

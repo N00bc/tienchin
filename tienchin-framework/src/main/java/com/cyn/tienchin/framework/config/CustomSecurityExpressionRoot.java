@@ -26,6 +26,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
 
     /**
      * 判断当前对象是否具备某一个权限
+     *
      * @param permission
      * @return
      */
@@ -43,6 +44,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
 
     /**
      * 是否具备多个权限中的任意一个权限
+     *
      * @param permissions
      * @return
      */

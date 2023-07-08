@@ -36,6 +36,7 @@ public class CourseController extends BaseController {
 
     /**
      * 课程列表
+     *
      * @param courseVo
      * @return
      */
@@ -59,6 +60,7 @@ public class CourseController extends BaseController {
     public AjaxResult add(@Validated(AddGroup.class) @RequestBody CourseVo courseVo) {
         return courseService.insertCourse(courseVo);
     }
+
     /**
      * 根据活动id获取课程信息
      *
@@ -70,6 +72,7 @@ public class CourseController extends BaseController {
     public AjaxResult getInfo(@PathVariable("courseId") Integer courseId) {
         return AjaxResult.success(courseService.getById(courseId));
     }
+
     /**
      * 修改保存课程
      */
@@ -79,6 +82,7 @@ public class CourseController extends BaseController {
     public AjaxResult edit(@Validated(EditGroup.class) @RequestBody CourseVo courseVo) {
         return courseService.updateCourse(courseVo);
     }
+
     /**
      * 根据id删除活动
      *
@@ -92,6 +96,7 @@ public class CourseController extends BaseController {
         logger.info("courseIds:{}", courseIds);
         return AjaxResult.success(courseService.removeBatchByIds(new ArrayList<>(Arrays.asList(courseIds))));
     }
+
     /**
      * 导出为Excel
      *

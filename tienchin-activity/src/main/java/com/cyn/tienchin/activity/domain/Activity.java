@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author cyn
@@ -238,22 +238,22 @@ public class Activity implements Serializable {
     @Override
     public String toString() {
         return "Activity{" +
-            "activityId = " + activityId +
-            ", activityName = " + activityName +
-            ", channelId = " + channelId +
-            ", info = " + info +
-            ", type = " + type +
-            ", discount = " + discount +
-            ", voucher = " + voucher +
-            ", status = " + status +
-            ", beginTime = " + beginTime +
-            ", endTime = " + endTime +
-            ", remark = " + remark +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", createBy = " + createBy +
-            ", updateBy = " + updateBy +
-            ", delFlag = " + delFlag +
-        "}";
+                "activityId = " + activityId +
+                ", activityName = " + activityName +
+                ", channelId = " + channelId +
+                ", info = " + info +
+                ", type = " + type +
+                ", discount = " + discount +
+                ", voucher = " + voucher +
+                ", status = " + status +
+                ", beginTime = " + beginTime +
+                ", endTime = " + endTime +
+                ", remark = " + remark +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", createBy = " + createBy +
+                ", updateBy = " + updateBy +
+                ", delFlag = " + delFlag +
+                "}";
     }
 }

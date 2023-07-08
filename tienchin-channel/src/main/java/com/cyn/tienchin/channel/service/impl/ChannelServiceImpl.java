@@ -13,6 +13,7 @@ import com.cyn.tienchin.common.utils.poi.ExcelUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
  * @since 2023-07-01
  */
 @Service
+@Transactional
 public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> implements IChannelService {
     @Autowired
     private ChannelMapper channelMapper;

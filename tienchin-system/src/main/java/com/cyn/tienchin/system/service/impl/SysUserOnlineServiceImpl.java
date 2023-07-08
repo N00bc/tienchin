@@ -2,9 +2,10 @@ package com.cyn.tienchin.system.service.impl;
 
 import com.cyn.tienchin.common.core.domain.model.LoginUser;
 import com.cyn.tienchin.common.utils.StringUtils;
+import com.cyn.tienchin.system.domain.SysUserOnline;
 import com.cyn.tienchin.system.service.ISysUserOnlineService;
 import org.springframework.stereotype.Service;
-import com.cyn.tienchin.system.domain.SysUserOnline;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 在线用户 服务层处理
@@ -12,6 +13,7 @@ import com.cyn.tienchin.system.domain.SysUserOnline;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
     /**
      * 通过登录地址查询信息

@@ -2,15 +2,16 @@ package com.cyn.tienchin.course.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.course.domain.Course;
 import com.cyn.tienchin.course.domain.vo.CourseVo;
 import com.cyn.tienchin.course.mapper.CourseMapper;
 import com.cyn.tienchin.course.service.ICourseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
  * @since 2023-07-06
  */
 @Service
+@Transactional
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
     @Autowired
     private CourseMapper courseMapper;

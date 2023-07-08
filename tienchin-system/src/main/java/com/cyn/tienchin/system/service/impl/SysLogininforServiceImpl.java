@@ -1,12 +1,13 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.List;
-
+import com.cyn.tienchin.system.domain.SysLogininfor;
+import com.cyn.tienchin.system.mapper.SysLogininforMapper;
 import com.cyn.tienchin.system.service.ISysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cyn.tienchin.system.domain.SysLogininfor;
-import com.cyn.tienchin.system.mapper.SysLogininforMapper;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 系统访问日志情况信息 服务层处理
@@ -14,6 +15,7 @@ import com.cyn.tienchin.system.mapper.SysLogininforMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysLogininforServiceImpl implements ISysLogininforService {
 
     @Autowired

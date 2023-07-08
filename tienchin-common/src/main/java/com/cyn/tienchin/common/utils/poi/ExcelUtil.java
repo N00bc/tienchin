@@ -340,7 +340,7 @@ public class ExcelUtil<T> {
                         val = Convert.toDouble(val);
                     } else if (Float.TYPE == fieldType || Float.class == fieldType) {
                         val = Convert.toFloat(val);
-                    }  else if (BigDecimal.class == fieldType) {
+                    } else if (BigDecimal.class == fieldType) {
                         val = Convert.toBigDecimal(val);
                     } else if (Date.class == fieldType) {
                         if (val instanceof String) {

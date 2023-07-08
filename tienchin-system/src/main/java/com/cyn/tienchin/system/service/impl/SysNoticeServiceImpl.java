@@ -1,12 +1,13 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.List;
-
+import com.cyn.tienchin.system.domain.SysNotice;
+import com.cyn.tienchin.system.mapper.SysNoticeMapper;
 import com.cyn.tienchin.system.service.ISysNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cyn.tienchin.system.domain.SysNotice;
-import com.cyn.tienchin.system.mapper.SysNoticeMapper;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 公告 服务层实现
@@ -14,6 +15,7 @@ import com.cyn.tienchin.system.mapper.SysNoticeMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysNoticeServiceImpl implements ISysNoticeService {
     @Autowired
     private SysNoticeMapper noticeMapper;

@@ -37,6 +37,7 @@ import com.cyn.tienchin.system.mapper.SysUserRoleMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysUserServiceImpl implements ISysUserService {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 

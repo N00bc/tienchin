@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author cyn
@@ -19,6 +19,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     /**
      * 查询课程列表
+     *
      * @param courseVo
      * @return
      */
