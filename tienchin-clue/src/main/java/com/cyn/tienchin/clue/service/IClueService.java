@@ -2,7 +2,7 @@ package com.cyn.tienchin.clue.service;
 
 import com.cyn.tienchin.clue.domain.Clue;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.cyn.tienchin.clue.domain.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueSummary;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 
 import java.util.List;
@@ -31,4 +31,10 @@ public interface IClueService extends IService<Clue> {
      */
     List<ClueSummary> selectClueSummaryList();
 
+    /**
+     * 根据线索Id获取线索信息
+     * @param clueId
+     * @return
+     */
+    AjaxResult getClueDetailsByClueId(Long clueId);
 }

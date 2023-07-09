@@ -5,7 +5,7 @@ import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.service.IActivityService;
 import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.clue.domain.Clue;
-import com.cyn.tienchin.clue.domain.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueSummary;
 import com.cyn.tienchin.clue.service.IClueService;
 import com.cyn.tienchin.common.annotation.Log;
 import com.cyn.tienchin.common.core.controller.BaseController;
@@ -92,13 +92,25 @@ public class ClueController extends BaseController {
 
     /**
      * 根据部门id查询部门员工信息
+     *
      * @param deptId
      * @return
      */
-    @PreAuthorize("hasPermission('tienchin:clue:list')")
+    @PreAuthorize("hasPermission('tienchin:clue:assign')")
     @GetMapping("/users/{deptId}")
-    public AjaxResult getUserListByDeptId(@PathVariable("deptId")Long deptId){
-
+    public AjaxResult getUserListByDeptId(@PathVariable("deptId") Long deptId) {
         return sysUserService.getUserByDeptId(deptId);
+    }
+
+    /**
+     * 根据线索Id获取线索信息
+     *
+     * @param clueId
+     * @return
+     */
+    @PreAuthorize("hasAnyPermissions('tienchin:clue:view','tienchin:clue:follow')")
+    @GetMapping("/{clueId}")
+    public AjaxResult getClueDetailsByClueId(@PathVariable("clueId") Long clueId) {
+        return clueService.getClueDetailsByClueId(clueId);
     }
 }

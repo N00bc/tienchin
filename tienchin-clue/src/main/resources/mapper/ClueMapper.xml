@@ -3,7 +3,7 @@
 <mapper namespace="com.cyn.tienchin.clue.mapper.ClueMapper">
 
     <!--需要考虑到线索被转派出去且无人认领所以需要左连接-->
-    <select id="selectClueSummaryList" resultType="com.cyn.tienchin.clue.domain.ClueSummary">
+    <select id="selectClueSummaryList" resultType="com.cyn.tienchin.clue.domain.vo.ClueSummary">
         SELECT tclue.clue_id,
                tclue.customer_name,
                tchannel.channel_name,
@@ -19,5 +19,35 @@
                  LEFT JOIN tienchin_assign tassign
                            ON tclue.clue_id = tassign.assign_id
                                AND tassign.latest = 1
+    </select>
+    <select id="getClueDetailsByClueId" resultType="com.cyn.tienchin.clue.domain.vo.ClueDetails">
+        SELECT tclue.clue_id,
+               tclue.customer_name,
+               tclue.gender,
+               tclue.phone_number,
+               tclue.age,
+               tclue.wechat,
+               tclue.qq,
+               tclue.`level`,
+               tclue.create_time,
+               tclue.`subject`,
+               tclue.`status`,
+               tclue.fail_count,
+               tclue.next_time,
+               tclue.create_by   AS allocator,
+               tclue.create_time AS belongTime,
+               tac.info,
+               tas.user_name     AS owner,
+               tac.activity_name,
+               tch.channel_name
+        FROM tienchin_clue tclue,
+             tienchin_assign tas,
+             tienchin_activity tac,
+             tienchin_channel tch
+        WHERE tclue.activity_id = tac.activity_id
+          AND tclue.channel_id = tch.channel_id
+          AND tas.assign_id = tclue.clue_id
+          AND tas.latest = 1
+          AND tclue.clue_id = #{clueId}
     </select>
 </mapper>

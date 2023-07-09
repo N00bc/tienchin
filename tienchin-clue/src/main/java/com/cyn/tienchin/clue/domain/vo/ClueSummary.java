@@ -1,4 +1,4 @@
-package com.cyn.tienchin.clue.domain;
+package com.cyn.tienchin.clue.domain.vo;
 
 import java.time.LocalDateTime;
 

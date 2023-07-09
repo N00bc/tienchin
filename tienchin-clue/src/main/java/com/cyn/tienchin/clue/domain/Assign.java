@@ -2,6 +2,7 @@ package com.cyn.tienchin.clue.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -32,16 +33,19 @@ public class Assign implements Serializable {
     /**
      * 线索或者商机的ID
      */
+    @NotNull(message = "{assign.assignId.notnull}")
     private Integer assignId;
 
     /**
      * 线索当前所属用户id
      */
+    @NotNull(message = "{assign.userId.notnull}")
     private Long userId;
 
     /**
      * 线索所属用户名
      */
+    @NotNull(message = "{assign.userName.notnull}")
     private String userName;
 
     /**

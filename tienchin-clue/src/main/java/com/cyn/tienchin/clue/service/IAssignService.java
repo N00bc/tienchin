@@ -2,6 +2,7 @@ package com.cyn.tienchin.clue.service;
 
 import com.cyn.tienchin.clue.domain.Assign;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cyn.tienchin.common.core.domain.AjaxResult;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAssignService extends IService<Assign> {
 
+    /**
+     * 增加分派记录
+     * @param assign
+     * @return
+     */
+    AjaxResult addAssign(Assign assign);
 }

@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.clue.domain.Assign;
 import com.cyn.tienchin.clue.domain.Clue;
-import com.cyn.tienchin.clue.domain.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueDetails;
+import com.cyn.tienchin.clue.domain.vo.ClueSummary;
 import com.cyn.tienchin.clue.mapper.ClueMapper;
 import com.cyn.tienchin.clue.service.IAssignService;
 import com.cyn.tienchin.clue.service.IClueService;
@@ -79,5 +80,17 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     public List<ClueSummary> selectClueSummaryList() {
         List<ClueSummary> clueSummaries = clueMapper.selectClueSummaryList();
         return clueSummaries;
+    }
+
+    /**
+     * 根据线索Id获取线索信息
+     *
+     * @param clueId
+     * @return
+     */
+    @Override
+    public AjaxResult getClueDetailsByClueId(Long clueId) {
+        ClueDetails clueDetails = clueMapper.getClueDetailsByClueId(clueId);
+        return AjaxResult.success(clueDetails);
     }
 }

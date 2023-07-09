@@ -273,6 +273,8 @@
         FROM sys_user su,
              sys_dept sd
         WHERE su.dept_id = sd.dept_id
-          AND (find_in_set(#{deptId}, sd.ancestors) OR sd.dept_id = #{deptId})
+          AND (find_in_set(#{deptId}, sd.ancestors)
+                   OR sd.dept_id = #{deptId}
+            )
     </select>
 </mapper>
