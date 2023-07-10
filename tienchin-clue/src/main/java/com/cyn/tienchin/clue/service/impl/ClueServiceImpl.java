@@ -1,6 +1,7 @@
 package com.cyn.tienchin.clue.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.clue.domain.Assign;
@@ -125,7 +126,54 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     }
 
     /**
+     * 更新 `无效线索` 信息
+     *
+     * @param clueDetails
+     * @return
+     */
+    @Override
+    public AjaxResult updateInvalidateClueFollow(ClueDetails clueDetails) {
+        try {
+            // 如果当前线索已经失败三次了 直接变成伪线索
+            Clue clue = getById(clueDetails.getClueId());
+            if (clue.getFailCount() >= 3) {
+                LambdaUpdateWrapper<Clue> lambdaUpdateWrapper = Wrappers.<Clue>lambdaUpdate()
+                        .eq(Clue::getClueId, clue.getClueId())
+                        .set(Clue::getStatus, TienChinConstants.CLUE_INVALIDATE);
+                update(lambdaUpdateWrapper);
+                return AjaxResult.success("修改线索详情成功");
+            }
+            // 1.线索表中记录 + 1
+            LambdaUpdateWrapper<Clue> wrapper = Wrappers.<Clue>lambdaUpdate()
+                    .eq(Clue::getClueId, clueDetails.getClueId())
+                    .eq(Clue::getFailCount, clueDetails.getFailCount())
+                    .set(Clue::getFailCount, clueDetails.getFailCount() + 1);
+            update(wrapper);
+            // 2.线索记录表中记录这次操作
+            FollowRecord followRecord = getFollowRecordByClueDetails(clueDetails);
+            followRecordService.save(followRecord);
+            return AjaxResult.success("修改线索详情成功!");
+        } catch (Exception e) {
+            return AjaxResult.error("修改线索详情失败!");
+        }
+    }
+
+    /**
+     * 返回clueSummary对象
+     *
+     * @param clueId
+     * @return
+     */
+    @Override
+    public AjaxResult getClueSummary(Integer clueId) {
+        ClueSummary clueSummary = clueMapper.getClueSummaryByClueId(clueId);
+        return AjaxResult.success(clueSummary);
+    }
+    // ====================================== 私有方法 ======================================
+
+    /**
      * 根据ClueDetails得到FollowRecord
+     *
      * @param clueDetails
      * @return
      */

@@ -30,4 +30,11 @@ public interface ClueMapper extends BaseMapper<Clue> {
      * @return
      */
     ClueDetails getClueDetailsByClueId(@Param("clueId") Long clueId);
+
+    /**
+     * 根据 线索id获取线索概要
+     * @param clueId
+     * @return
+     */
+    ClueSummary getClueSummaryByClueId(Integer clueId);
 }

@@ -45,4 +45,18 @@ public interface IClueService extends IService<Clue> {
      * @return
      */
     AjaxResult updateClueFollow(ClueDetails clueDetails);
+
+    /**
+     * 更新 `无效线索` 信息
+     * @param clueDetails
+     * @return
+     */
+    AjaxResult updateInvalidateClueFollow(ClueDetails clueDetails);
+
+    /**
+     * 返回clueSummary对象
+     * @param clueId
+     * @return
+     */
+    AjaxResult getClueSummary(Integer clueId);
 }

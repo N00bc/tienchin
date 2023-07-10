@@ -36,16 +36,32 @@
                tclue.next_time,
                tclue.create_by   AS allocator,
                tclue.create_time AS belongTime,
-               tcr.info          AS record,
-               tas.user_name     AS OWNER,
+               tac.info          AS activity_info,
+               tas.user_name     AS owner,
                tac.activity_name,
                tch.channel_name
         FROM tienchin_clue tclue
                  LEFT JOIN tienchin_channel tch ON tclue.channel_id = tch.channel_id
                  LEFT JOIN tienchin_activity tac ON tclue.activity_id = tac.activity_id
-                 LEFT JOIN tienchin_assign tas ON tclue.clue_id = tas.assign_id
-                 LEFT JOIN tienchin_follow_record tcr ON tcr.assign_id = tas.assign_id
-        WHERE tas.latest = 1
-          AND tclue.clue_id = #{clueId}
+                 LEFT JOIN tienchin_assign tas ON tclue.clue_id = tas.assign_id AND tas.latest = 1
+        WHERE tclue.clue_id = #{clueId}
+    </select>
+    <select id="getClueSummaryByClueId" resultType="com.cyn.tienchin.clue.domain.vo.ClueSummary">
+        SELECT tc.clue_id,
+               tc.customer_name,
+               tca.channel_name,
+               tc.phone_number,
+               tc.status,
+               tc.create_by,
+               tc.create_time,
+               tc.next_time,
+               tas.user_name AS owner
+        FROM tienchin_clue tc,
+             tienchin_channel tca,
+             tienchin_assign tas
+        WHERE tc.clue_id = #{clueId}
+          AND tc.clue_id = tas.assign_id
+          AND tc.channel_id = tca.channel_id
+          AND tc.del_flag = 0
     </select>
 </mapper>
