@@ -2,6 +2,7 @@ package com.cyn.tienchin.clue.service;
 
 import com.cyn.tienchin.clue.domain.Clue;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 
@@ -37,4 +38,11 @@ public interface IClueService extends IService<Clue> {
      * @return
      */
     AjaxResult getClueDetailsByClueId(Long clueId);
+
+    /**
+     * 更新跟进西南西
+     * @param clueDetails
+     * @return
+     */
+    AjaxResult updateClueFollow(ClueDetails clueDetails);
 }

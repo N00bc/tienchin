@@ -94,6 +94,18 @@ public class ClueDetails {
      * 创建时间
      */
     private LocalDateTime createTime;
+    /**
+     * 跟进记录
+     */
+    private String record;
+
+    public String getRecord() {
+        return record;
+    }
+
+    public void setRecord(String record) {
+        this.record = record;
+    }
 
     public LocalDateTime getCreateTime() {
         return createTime;
@@ -269,6 +281,7 @@ public class ClueDetails {
                 ", owner='" + owner + '\'' +
                 ", belongTime=" + belongTime +
                 ", createTime=" + createTime +
+                ", record='" + record + '\'' +
                 '}';
     }
 }

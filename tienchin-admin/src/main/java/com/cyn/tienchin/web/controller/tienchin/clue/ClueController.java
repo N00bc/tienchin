@@ -5,6 +5,7 @@ import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.service.IActivityService;
 import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.clue.domain.Clue;
+import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
 import com.cyn.tienchin.clue.service.IClueService;
 import com.cyn.tienchin.common.annotation.Log;
@@ -101,7 +102,6 @@ public class ClueController extends BaseController {
     public AjaxResult getUserListByDeptId(@PathVariable("deptId") Long deptId) {
         return sysUserService.getUserByDeptId(deptId);
     }
-
     /**
      * 根据线索Id获取线索信息
      *
@@ -112,5 +112,10 @@ public class ClueController extends BaseController {
     @GetMapping("/{clueId}")
     public AjaxResult getClueDetailsByClueId(@PathVariable("clueId") Long clueId) {
         return clueService.getClueDetailsByClueId(clueId);
+    }
+    @PreAuthorize("hasPermission('tienchin:clue:follow')")
+    @PutMapping("/follow")
+    public AjaxResult updateClueFollow(@RequestBody ClueDetails clueDetails){
+        return clueService.updateClueFollow(clueDetails);
     }
 }

@@ -1,5 +1,8 @@
 package com.cyn.tienchin.clue.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -26,7 +29,7 @@ public class FollowRecord implements Serializable {
     /**
      * 跟进记录 1=线索,2=商机
      */
-    private Boolean type;
+    private Integer type;
 
     /**
      * 线索或商机id
@@ -37,31 +40,34 @@ public class FollowRecord implements Serializable {
      * 备注
      */
     private String info;
-
     /**
      * 创建人
      */
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     /**
      * 更新人
      */
+    @TableField(fill = FieldFill.UPDATE)
     private String updateBy;
 
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
-
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**
      * 是否删除 0=未删除,2=删除
      */
-    private Boolean delFlag;
+    @TableLogic
+    private Integer delFlag;
 
     public Integer getRecordId() {
         return recordId;
@@ -71,11 +77,11 @@ public class FollowRecord implements Serializable {
         this.recordId = recordId;
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -127,11 +133,11 @@ public class FollowRecord implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelFlag() {
+    public Integer getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
     }
 

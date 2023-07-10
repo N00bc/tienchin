@@ -1,5 +1,6 @@
 package com.cyn.tienchin.framework.config;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -12,12 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class LocalDateTimeConfig {
 
     @Bean
-    public LocalDateTimeSerializer localDateTimeDeserializer() {
-        return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
-
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        return builder -> builder.serializerByType(LocalDateTime.class, localDateTimeDeserializer());
+    public Jackson2ObjectMapperBuilderCustomizer customizeLocalDateTimeFormat() {
+        return jacksonObjectMapperBuilder -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTimeDeserializer deserializer = new LocalDateTimeDeserializer(formatter);
+            LocalDateTimeSerializer serializer = new LocalDateTimeSerializer(formatter);
+            jacksonObjectMapperBuilder.serializerByType(LocalDateTime.class, serializer);
+            jacksonObjectMapperBuilder.deserializerByType(LocalDateTime.class, deserializer);
+        };
     }
 }

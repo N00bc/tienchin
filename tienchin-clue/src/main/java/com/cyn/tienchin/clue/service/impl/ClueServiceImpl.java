@@ -5,14 +5,18 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.clue.domain.Assign;
 import com.cyn.tienchin.clue.domain.Clue;
+import com.cyn.tienchin.clue.domain.FollowRecord;
 import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
 import com.cyn.tienchin.clue.mapper.ClueMapper;
 import com.cyn.tienchin.clue.service.IAssignService;
 import com.cyn.tienchin.clue.service.IClueService;
+import com.cyn.tienchin.clue.service.IFollowRecordService;
 import com.cyn.tienchin.common.constant.TienChinConstants;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.utils.SecurityUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +38,8 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     private ClueMapper clueMapper;
     @Autowired
     private IAssignService assignService;
+    @Autowired
+    private IFollowRecordService followRecordService;
 
     /**
      * 新增线索
@@ -92,5 +98,42 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     public AjaxResult getClueDetailsByClueId(Long clueId) {
         ClueDetails clueDetails = clueMapper.getClueDetailsByClueId(clueId);
         return AjaxResult.success(clueDetails);
+    }
+
+    /**
+     * 更新跟进西南西
+     *
+     * @param clueDetails
+     * @return
+     */
+    @Override
+    public AjaxResult updateClueFollow(ClueDetails clueDetails) {
+        /**
+         * 1.更新tienchin_clue表
+         * 2.更新tienchin_clue_follow表
+         */
+        try {
+            Clue clue = new Clue();
+            BeanUtils.copyProperties(clueDetails, clue);
+            updateById(clue);
+            FollowRecord followRecord = getFollowRecordByClueDetails(clueDetails);
+            followRecordService.save(followRecord);
+            return AjaxResult.success("线索跟进成功");
+        } catch (BeansException e) {
+            return AjaxResult.error("线索跟进失败");
+        }
+    }
+
+    /**
+     * 根据ClueDetails得到FollowRecord
+     * @param clueDetails
+     * @return
+     */
+    private FollowRecord getFollowRecordByClueDetails(ClueDetails clueDetails) {
+        FollowRecord followRecord = new FollowRecord();
+        followRecord.setType(TienChinConstants.CLUE_TYPE);
+        followRecord.setAssignId(clueDetails.getClueId());
+        followRecord.setInfo(clueDetails.getRecord());
+        return followRecord;
     }
 }
