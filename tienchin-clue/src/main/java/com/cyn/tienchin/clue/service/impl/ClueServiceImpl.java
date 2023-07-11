@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cyn.tienchin.business.domain.Business;
+import com.cyn.tienchin.business.service.IBusinessService;
 import com.cyn.tienchin.clue.domain.Assign;
 import com.cyn.tienchin.clue.domain.Clue;
 import com.cyn.tienchin.clue.domain.FollowRecord;
@@ -44,6 +46,8 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     private IAssignService assignService;
     @Autowired
     private IFollowRecordService followRecordService;
+    @Autowired
+    private IBusinessService businessService;
 
     /**
      * 新增线索
@@ -199,7 +203,66 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
         removeBatchByIds(new ArrayList<>(Arrays.asList(ids)));
         return AjaxResult.success("删除成功");
     }
+
+    /**
+     * 将线索转为
+     *
+     * @param clueId
+     * @return
+     */
+    @Override
+    public AjaxResult transClue2Business(Integer clueId) {
+        Clue clue = getById(clueId);
+        Business business = new Business();
+        BeanUtils.copyProperties(clue, business);
+        business = getNewBusinessEntity(business);
+        // 删除线索
+        removeById(clueId);
+        // 添加商机
+        businessService.save(business);
+        // 商机需要默认分配人
+        Assign assign = getAssignByBusiness(business);
+        assignService.save(assign);
+        return AjaxResult.success("转换商机成功");
+    }
+
+
     // ====================================== 私有方法 ======================================
+
+    /**
+     * 根据 `business` 生成 `assign`
+     *
+     * @param business
+     * @return
+     */
+    private Assign getAssignByBusiness(Business business) {
+        Assign assign = new Assign();
+        // 默认通过admin一手处理
+        assign.setUserName(TienChinConstants.ADMIN_USERNAME);
+        assign.setUserId(TienChinConstants.ADMIN_Id);
+        assign.setDeptId(TienChinConstants.ADMIN_DEPT_ID);
+        assign.setType(TienChinConstants.BUSINESS_TYPE);
+        assign.setAssignId(business.getBusinessId());
+        return assign;
+    }
+
+    /**
+     * 从clue转换为business需要更新一些字段
+     *
+     * @param business
+     * @return
+     */
+    private Business getNewBusinessEntity(Business business) {
+        business.setEndTime(null);
+        business.setFailCount(0);
+        business.setEndTime(null);
+        business.setNextTime(null);
+        business.setRemark(null);
+        business.setUpdateBy(null);
+        business.setUpdateTime(null);
+        business.setStatus(TienChinConstants.BUSINESS_ALLOCATE);
+        return business;
+    }
 
     /**
      * 根据ClueDetails得到FollowRecord

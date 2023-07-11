@@ -18,9 +18,15 @@
 
     <description>线索模块</description>
     <dependencies>
+        <!--公共模块-->
         <dependency>
             <groupId>com.cyn</groupId>
             <artifactId>tienchin-common</artifactId>
+        </dependency>
+        <!--商机模块-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-business</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,8 +1,7 @@
 package com.cyn.tienchin.business.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -43,7 +42,7 @@ public class Business implements Serializable {
     /**
      * 性别 0=男,1=女,2=未知
      */
-    private Boolean gender;
+    private Integer gender;
 
     /**
      * 手机号
@@ -53,7 +52,7 @@ public class Business implements Serializable {
     /**
      * 年龄
      */
-    private Boolean age;
+    private Integer age;
 
     /**
      * 微信号
@@ -63,12 +62,12 @@ public class Business implements Serializable {
     /**
      * qq号
      */
-    private Integer qq;
+    private String qq;
 
     /**
      * 意向等级 1~4 由强到弱
      */
-    private Boolean level;
+    private Integer level;
 
     /**
      * 私教课程
@@ -83,7 +82,7 @@ public class Business implements Serializable {
     /**
      * 伪线索失败次数，最大三次
      */
-    private Boolean failCount;
+    private Integer failCount;
 
     /**
      * 下次跟进时间
@@ -98,7 +97,7 @@ public class Business implements Serializable {
     /**
      * 是否需要转派 1=需要,0=不需要
      */
-    private Boolean transfer;
+    private Integer transfer;
 
     /**
      * 备注
@@ -108,26 +107,30 @@ public class Business implements Serializable {
     /**
      * 创建人
      */
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     /**
      * 更新人
      */
+    @TableField(fill = FieldFill.UPDATE)
     private String updateBy;
 
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
-
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**
      * 是否删除 0=未删除,2=已删除
      */
+    @TableField
     private Boolean delFlag;
 
     /**
@@ -163,17 +166,17 @@ public class Business implements Serializable {
     /**
      * 体重kg
      */
-    private Object weight;
+    private Double weight;
 
     /**
      * 身高m
      */
-    private Object height;
+    private Double height;
 
     /**
      * 每周锻炼时间
      */
-    private Object hours;
+    private Double hours;
 
     /**
      * 其他意向
@@ -217,11 +220,11 @@ public class Business implements Serializable {
         this.activityId = activityId;
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -233,11 +236,11 @@ public class Business implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(Boolean age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -249,19 +252,19 @@ public class Business implements Serializable {
         this.wechat = wechat;
     }
 
-    public Integer getQq() {
+    public String getQq() {
         return qq;
     }
 
-    public void setQq(Integer qq) {
+    public void setQq(String qq) {
         this.qq = qq;
     }
 
-    public Boolean getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Boolean level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
@@ -281,11 +284,11 @@ public class Business implements Serializable {
         this.status = status;
     }
 
-    public Boolean getFailCount() {
+    public Integer getFailCount() {
         return failCount;
     }
 
-    public void setFailCount(Boolean failCount) {
+    public void setFailCount(Integer failCount) {
         this.failCount = failCount;
     }
 
@@ -305,11 +308,11 @@ public class Business implements Serializable {
         this.endTime = endTime;
     }
 
-    public Boolean getTransfer() {
+    public Integer getTransfer() {
         return transfer;
     }
 
-    public void setTransfer(Boolean transfer) {
+    public void setTransfer(Integer transfer) {
         this.transfer = transfer;
     }
 
@@ -409,27 +412,27 @@ public class Business implements Serializable {
         this.education = education;
     }
 
-    public Object getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Object weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public Object getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(Object height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public Object getHours() {
+    public Double getHours() {
         return hours;
     }
 
-    public void setHours(Object hours) {
+    public void setHours(Double hours) {
         this.hours = hours;
     }
 
@@ -452,39 +455,39 @@ public class Business implements Serializable {
     @Override
     public String toString() {
         return "Business{" +
-            "businessId = " + businessId +
-            ", customerName = " + customerName +
-            ", channelId = " + channelId +
-            ", activityId = " + activityId +
-            ", gender = " + gender +
-            ", phoneNumber = " + phoneNumber +
-            ", age = " + age +
-            ", wechat = " + wechat +
-            ", qq = " + qq +
-            ", level = " + level +
-            ", subject = " + subject +
-            ", status = " + status +
-            ", failCount = " + failCount +
-            ", nextTime = " + nextTime +
-            ", endTime = " + endTime +
-            ", transfer = " + transfer +
-            ", remark = " + remark +
-            ", createBy = " + createBy +
-            ", updateBy = " + updateBy +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", delFlag = " + delFlag +
-            ", province = " + province +
-            ", city = " + city +
-            ", area = " + area +
-            ", courseId = " + courseId +
-            ", occupation = " + occupation +
-            ", education = " + education +
-            ", weight = " + weight +
-            ", height = " + height +
-            ", hours = " + hours +
-            ", otherIntention = " + otherIntention +
-            ", clueId = " + clueId +
-        "}";
+                "businessId=" + businessId +
+                ", customerName='" + customerName + '\'' +
+                ", channelId=" + channelId +
+                ", activityId=" + activityId +
+                ", gender=" + gender +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", age=" + age +
+                ", wechat='" + wechat + '\'' +
+                ", qq='" + qq + '\'' +
+                ", level=" + level +
+                ", subject=" + subject +
+                ", status=" + status +
+                ", failCount=" + failCount +
+                ", nextTime=" + nextTime +
+                ", endTime=" + endTime +
+                ", transfer=" + transfer +
+                ", remark='" + remark + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", updateBy='" + updateBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", delFlag=" + delFlag +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", area='" + area + '\'' +
+                ", courseId=" + courseId +
+                ", occupation='" + occupation + '\'' +
+                ", education='" + education + '\'' +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", hours=" + hours +
+                ", otherIntention='" + otherIntention + '\'' +
+                ", clueId=" + clueId +
+                '}';
     }
 }

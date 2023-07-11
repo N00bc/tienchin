@@ -75,4 +75,11 @@ public interface IClueService extends IService<Clue> {
      * @return
      */
     AjaxResult deleteClueByIds(Integer[] ids);
+
+    /**
+     * 将线索转为
+     * @param clueId
+     * @return
+     */
+    AjaxResult transClue2Business(Integer clueId);
 }

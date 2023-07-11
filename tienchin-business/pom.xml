@@ -21,6 +21,7 @@
             <groupId>com.cyn</groupId>
             <artifactId>tienchin-common</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

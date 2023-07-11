@@ -151,6 +151,18 @@ public class ClueController extends BaseController {
         return clueService.updateInvalidateClueFollow(clueDetails);
     }
 
+
+    /**
+     * 将`线索` `转为商机`
+     *
+     * @param clueId
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:clue:follow')")
+    @PutMapping("/business/{clueId}")
+    public AjaxResult clue2business(@PathVariable("clueId") Integer clueId) {
+        return clueService.transClue2Business(clueId);
+    }
     /**
      * 根据`线索id`查找线索概要
      *
