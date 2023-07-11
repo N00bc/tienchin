@@ -119,7 +119,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
          */
         try {
             Clue clue = new Clue();
-            clue.setStatus(TienChinConstants.CLUE_FOLLOWING);
+            clueDetails.setStatus(TienChinConstants.CLUE_FOLLOWING);
             BeanUtils.copyProperties(clueDetails, clue);
             updateById(clue);
             FollowRecord followRecord = getFollowRecordByClueDetails(clueDetails);
