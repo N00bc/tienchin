@@ -9,6 +9,7 @@ import com.cyn.tienchin.clue.domain.Clue;
 import com.cyn.tienchin.clue.domain.FollowRecord;
 import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueVo;
 import com.cyn.tienchin.clue.mapper.ClueMapper;
 import com.cyn.tienchin.clue.service.IAssignService;
 import com.cyn.tienchin.clue.service.IClueService;
@@ -22,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -81,11 +84,12 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     /**
      * 查询线索概要
      *
+     * @param clueVo
      * @return
      */
     @Override
-    public List<ClueSummary> selectClueSummaryList() {
-        List<ClueSummary> clueSummaries = clueMapper.selectClueSummaryList();
+    public List<ClueSummary> selectClueSummaryList(ClueVo clueVo) {
+        List<ClueSummary> clueSummaries = clueMapper.selectClueSummaryList(clueVo);
         return clueSummaries;
     }
 
@@ -102,7 +106,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
     }
 
     /**
-     * 更新跟进西南西
+     * 更新跟线索
      *
      * @param clueDetails
      * @return
@@ -115,6 +119,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
          */
         try {
             Clue clue = new Clue();
+            clue.setStatus(TienChinConstants.CLUE_FOLLOWING);
             BeanUtils.copyProperties(clueDetails, clue);
             updateById(clue);
             FollowRecord followRecord = getFollowRecordByClueDetails(clueDetails);
@@ -166,8 +171,33 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements IC
      */
     @Override
     public AjaxResult getClueSummary(Integer clueId) {
-        ClueSummary clueSummary = clueMapper.getClueSummaryByClueId(clueId);
-        return AjaxResult.success(clueSummary);
+//        ClueSummary clueSummary = clueMapper.getClueSummaryByClueId(clueId);
+        Clue clue = getById(clueId);
+        return AjaxResult.success(clue);
+    }
+
+    /**
+     * 更新clue
+     *
+     * @param clue
+     * @return
+     */
+    @Override
+    public AjaxResult updateClue(Clue clue) {
+        updateById(clue);
+        return AjaxResult.success("更新成功");
+    }
+
+    /**
+     * 根据id删除clue
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public AjaxResult deleteClueByIds(Integer[] ids) {
+        removeBatchByIds(new ArrayList<>(Arrays.asList(ids)));
+        return AjaxResult.success("删除成功");
     }
     // ====================================== 私有方法 ======================================
 

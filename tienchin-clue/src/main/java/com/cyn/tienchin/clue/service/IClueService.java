@@ -4,6 +4,7 @@ import com.cyn.tienchin.clue.domain.Clue;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueVo;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 
 import java.util.List;
@@ -29,8 +30,9 @@ public interface IClueService extends IService<Clue> {
     /**
      * 查询线索概要
      * @return
+     * @param clueVo
      */
-    List<ClueSummary> selectClueSummaryList();
+    List<ClueSummary> selectClueSummaryList(ClueVo clueVo);
 
     /**
      * 根据线索Id获取线索信息
@@ -59,4 +61,18 @@ public interface IClueService extends IService<Clue> {
      * @return
      */
     AjaxResult getClueSummary(Integer clueId);
+
+    /**
+     * 更新clue
+     * @param clue
+     * @return
+     */
+    AjaxResult updateClue(Clue clue);
+
+    /**
+     * 根据id删除clue
+     * @param ids
+     * @return
+     */
+    AjaxResult deleteClueByIds(Integer[] ids);
 }

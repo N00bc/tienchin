@@ -7,6 +7,7 @@ import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.clue.domain.Clue;
 import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueVo;
 import com.cyn.tienchin.clue.service.IClueService;
 import com.cyn.tienchin.common.annotation.Log;
 import com.cyn.tienchin.common.core.controller.BaseController;
@@ -14,8 +15,8 @@ import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.page.TableDataInfo;
 import com.cyn.tienchin.common.enums.BusinessType;
 import com.cyn.tienchin.common.validator.AddGroup;
+import com.cyn.tienchin.common.validator.EditGroup;
 import com.cyn.tienchin.system.service.ISysUserService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -86,9 +87,9 @@ public class ClueController extends BaseController {
      */
     @PreAuthorize("hasPermission('tienchin:clue:list')")
     @GetMapping("/list")
-    public TableDataInfo list() {
+    public TableDataInfo list(ClueVo clueVo) {
         startPage();
-        List<ClueSummary> list = clueService.selectClueSummaryList();
+        List<ClueSummary> list = clueService.selectClueSummaryList(clueVo);
         return getDataTable(list);
     }
 
@@ -103,6 +104,17 @@ public class ClueController extends BaseController {
     public AjaxResult getUserListByDeptId(@PathVariable("deptId") Long deptId) {
         return sysUserService.getUserByDeptId(deptId);
     }
+
+    /**
+     * 获取owner信息
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:clue:list')")
+    @GetMapping("/owner")
+    public AjaxResult getOwnerList() {
+        return sysUserService.getOwnerList();
+    }
+
     /**
      * 根据线索Id获取线索信息
      *
@@ -117,29 +129,52 @@ public class ClueController extends BaseController {
 
     /**
      * 更新`线索`
+     *
      * @param clueDetails
      * @return
      */
     @PreAuthorize("hasPermission('tienchin:clue:follow')")
     @PutMapping("/follow")
-    public AjaxResult updateClueFollow(@RequestBody ClueDetails clueDetails){
+    public AjaxResult updateClueFollow(@RequestBody ClueDetails clueDetails) {
         return clueService.updateClueFollow(clueDetails);
     }
 
     /**
      * `无效线索`记录提交
+     *
      * @param clueDetails
      * @return
      */
     @PreAuthorize("hasPermission('tienchin:clue:follow')")
     @PutMapping("/invalidate")
-    public AjaxResult updateInvalidateClueFollow(@RequestBody ClueDetails clueDetails){
+    public AjaxResult updateInvalidateClueFollow(@RequestBody ClueDetails clueDetails) {
         return clueService.updateInvalidateClueFollow(clueDetails);
     }
+
+    /**
+     * 根据`线索id`查找线索概要
+     *
+     * @param clueId
+     * @return
+     */
     @PreAuthorize("hasPermission('tienchin:clue:query')")
     @GetMapping("/summary/{clueId}")
-    public AjaxResult getClueSummary(@PathVariable("clueId")Integer clueId){
+    public AjaxResult getClueSummary(@PathVariable("clueId") Integer clueId) {
         return clueService.getClueSummary(clueId);
     }
 
+    /**
+     * 根据线索Id
+     */
+    @PreAuthorize("hasPermission('tienchin:clue:edit')")
+    @PutMapping()
+    public AjaxResult updateClue(@Validated(EditGroup.class) @RequestBody Clue clue) {
+        return clueService.updateClue(clue);
+    }
+
+    @PreAuthorize("hasPermission('tienchin:clue:remove')")
+    @DeleteMapping("/{clueIds}")
+    public AjaxResult deleteClueByIds(@PathVariable("clueIds") Integer[] ids) {
+        return clueService.deleteClueByIds(ids);
+    }
 }

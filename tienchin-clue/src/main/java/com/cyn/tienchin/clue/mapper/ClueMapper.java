@@ -4,6 +4,7 @@ import com.cyn.tienchin.clue.domain.Clue;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cyn.tienchin.clue.domain.vo.ClueDetails;
 import com.cyn.tienchin.clue.domain.vo.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public interface ClueMapper extends BaseMapper<Clue> {
     /**
      * 查找线索摘要信息
      * @return
+     * @param clueVo
      */
-    List<ClueSummary> selectClueSummaryList();
+    List<ClueSummary> selectClueSummaryList(@Param("clueVo") ClueVo clueVo);
 
     /**
      * 根据线索id获取线索详情

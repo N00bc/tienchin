@@ -131,4 +131,11 @@ public interface SysUserMapper {
      * @return
      */
     List<SysUser> getUserByDeptId(@Param("deptId") Long deptId);
+
+    /**
+     * 获取所属人集合
+     * @return
+     */
+    List<String> getOwnerList();
+
 }

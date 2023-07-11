@@ -25,6 +25,7 @@ public class Clue implements Serializable {
      * 线索id
      */
     @TableId(value = "clue_id", type = IdType.AUTO)
+    @NotNull(groups = {EditGroup.class}, message = "{clue.clueId.notnull}")
     private Integer clueId;
 
     /**

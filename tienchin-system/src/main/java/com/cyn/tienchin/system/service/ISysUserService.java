@@ -211,4 +211,10 @@ public interface ISysUserService {
      * @return
      */
     AjaxResult getUserByDeptId(Long deptId);
+
+    /**
+     * 获取所属人用户名集合
+     * @return
+     */
+    AjaxResult getOwnerList();
 }

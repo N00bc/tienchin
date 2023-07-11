@@ -498,4 +498,15 @@ public class SysUserServiceImpl implements ISysUserService {
         List<SysUser> userList = userMapper.getUserByDeptId(deptId);
         return AjaxResult.success(userList);
     }
+
+    /**
+     * 获取所属人用户名集合
+     *
+     * @return
+     */
+    @Override
+    public AjaxResult getOwnerList() {
+        List<String> ownerList = userMapper.getOwnerList();
+        return AjaxResult.success(ownerList);
+    }
 }
