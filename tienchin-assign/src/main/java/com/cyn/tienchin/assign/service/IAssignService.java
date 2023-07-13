@@ -1,7 +1,7 @@
-package com.cyn.tienchin.clue.service;
+package com.cyn.tienchin.assign.service;
 
-import com.cyn.tienchin.clue.domain.Assign;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cyn.tienchin.assign.domain.Assign;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 
 /**

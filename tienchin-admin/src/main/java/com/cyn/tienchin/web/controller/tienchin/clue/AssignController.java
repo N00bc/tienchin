@@ -1,7 +1,7 @@
 package com.cyn.tienchin.web.controller.tienchin.clue;
 
-import com.cyn.tienchin.clue.domain.Assign;
-import com.cyn.tienchin.clue.service.IAssignService;
+import com.cyn.tienchin.assign.domain.Assign;
+import com.cyn.tienchin.assign.service.IAssignService;
 import com.cyn.tienchin.common.annotation.Log;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.enums.BusinessType;

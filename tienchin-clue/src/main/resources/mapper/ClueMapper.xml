@@ -18,7 +18,7 @@
         ON tclue.channel_id = tchannel.channel_id
         LEFT JOIN tienchin_assign tassign
         ON tclue.clue_id = tassign.assign_id
-        AND tassign.latest = 1
+        AND tassign.latest = 1 AND tassign.type = 0
         WHERE tclue.del_flag = 0
         <if test="clueVo.customerName != null">AND tclue.customer_name = #{clueVo.customerName}</if>
         <if test="clueVo.status != null">AND tclue.status = #{clueVo.status}</if>

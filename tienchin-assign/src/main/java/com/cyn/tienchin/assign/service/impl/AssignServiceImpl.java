@@ -1,11 +1,11 @@
-package com.cyn.tienchin.clue.service.impl;
+package com.cyn.tienchin.assign.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cyn.tienchin.clue.domain.Assign;
-import com.cyn.tienchin.clue.mapper.AssignMapper;
-import com.cyn.tienchin.clue.service.IAssignService;
+import com.cyn.tienchin.assign.domain.Assign;
+import com.cyn.tienchin.assign.mapper.AssignMapper;
+import com.cyn.tienchin.assign.service.IAssignService;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -19,6 +19,7 @@
         <module>tienchin-course</module>
         <module>tienchin-clue</module>
         <module>tienchin-business</module>
+        <module>tienchin-assign</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -221,6 +222,12 @@
             <dependency>
                 <groupId>com.cyn</groupId>
                 <artifactId>tienchin-business</artifactId>
+                <version>${tienchin.version}</version>
+            </dependency>
+            <!--分派管理-->
+            <dependency>
+                <groupId>com.cyn</groupId>
+                <artifactId>tienchin-assign</artifactId>
                 <version>${tienchin.version}</version>
             </dependency>
             <!--mybatis plus code generator-->

@@ -1,4 +1,4 @@
-package com.cyn.tienchin.clue.domain;
+package com.cyn.tienchin.assign.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 
