@@ -3,17 +3,16 @@
 <mapper namespace="com.cyn.tienchin.business.mapper.BusinessMapper">
 
     <select id="selectBusinessSummaryList" resultType="com.cyn.tienchin.business.domain.BusinessSummary">
-        SELECT
-            tb.customer_name,
-            tb.phone_number,
-            tb.create_time,
-            tb.STATUS,
-            tb.next_time,
-            ta.user_name AS owner
-        FROM
-            tienchin_business tb
-                LEFT JOIN tienchin_assign ta ON tb.business_id = ta.assign_id
-                AND ta.type = 2
-                AND ta.latest = 1
+        SELECT tb.business_id,
+               tb.customer_name,
+               tb.phone_number,
+               tb.create_time,
+               tb.STATUS,
+               tb.next_time,
+               ta.user_name AS owner
+        FROM tienchin_business tb
+                 LEFT JOIN tienchin_assign ta ON tb.business_id = ta.assign_id
+            AND ta.type = 2
+            AND ta.latest = 1
     </select>
 </mapper>

@@ -45,6 +45,9 @@ public class TienChinConstants {
      */
     public static final Integer BUSINESS_RECOVER = 3;
 
+    public static final Integer IS_LATEST = 1;
+    public static final Integer IS_NOT_LATEST = 2;
+
     /**
      * 默认转为商机后一手处理人
      */

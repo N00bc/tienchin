@@ -69,7 +69,7 @@ public class ClueController extends BaseController {
     }
 
     /**
-     * 查询所有
+     * 查询所有活动
      *
      * @return
      */

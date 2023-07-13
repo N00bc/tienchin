@@ -57,7 +57,7 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
         if (one != null) {
             return AjaxResult.error("当前客户信息已存在");
         }
-        business.setStatus(TienChinConstants.BUSINESS_TYPE);
+        business.setStatus(TienChinConstants.BUSINESS_ALLOCATE);
         save(business);
         Assign assign = getAssignByBusiness(business);
         assignService.save(assign);
@@ -73,7 +73,8 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private Assign getAssignByBusiness(Business business) {
         Assign assign = new Assign();
         assign.setAssignId(business.getBusinessId());
-        assign.setLatest(1);
+        assign.setType(TienChinConstants.BUSINESS_TYPE);
+        assign.setLatest(TienChinConstants.IS_LATEST);
         assign.setDeptId(SecurityUtils.getDeptId());
         assign.setUserId(SecurityUtils.getUserId());
         assign.setUserName(SecurityUtils.getUsername());

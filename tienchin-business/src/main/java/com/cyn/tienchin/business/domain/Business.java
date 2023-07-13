@@ -1,13 +1,16 @@
 package com.cyn.tienchin.business.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.cyn.tienchin.common.validator.AddGroup;
+import com.cyn.tienchin.common.validator.EditGroup;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author cyn
@@ -22,11 +25,13 @@ public class Business implements Serializable {
      * 线索id
      */
     @TableId(value = "business_id", type = IdType.AUTO)
+    @NotNull(groups = EditGroup.class, message = "{business.business.notnull}")
     private Integer businessId;
 
     /**
      * 客户名
      */
+    @NotNull(message = "{business.customerName.notnull}", groups = {EditGroup.class, AddGroup.class})
     private String customerName;
 
     /**
@@ -47,6 +52,7 @@ public class Business implements Serializable {
     /**
      * 手机号
      */
+    @NotNull(message = "{business.phoneNumber.notnull}", groups = {EditGroup.class, AddGroup.class})
     private String phoneNumber;
 
     /**

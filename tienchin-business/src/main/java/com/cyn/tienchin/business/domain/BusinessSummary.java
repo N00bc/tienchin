@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
  * @date 2023/7/12/0012 0:28
  */
 public class BusinessSummary {
+    private Integer businessId;
     /**
      * 客户姓名
      */
@@ -32,6 +33,14 @@ public class BusinessSummary {
      * 下次跟进时间
      */
     private LocalDateTime nextTime;
+
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -84,7 +93,8 @@ public class BusinessSummary {
     @Override
     public String toString() {
         return "BusinessSummary{" +
-                "customerName='" + customerName + '\'' +
+                "businessId=" + businessId +
+                ", customerName='" + customerName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", owner='" + owner + '\'' +
                 ", createTime=" + createTime +
