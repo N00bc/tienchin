@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-07-07
  */
 @RestController
-@RequestMapping("/tienchin/clue/follow/record")
+@RequestMapping("/tienchin/follow/record")
 public class FollowRecordController {
 
     @Autowired
@@ -30,9 +30,14 @@ public class FollowRecordController {
      * @return
      */
     @PreAuthorize("hasAnyPermissions('tienchin:clue:follow','tienchin:clue:view')")
-    @GetMapping("/{clueId}")
+    @GetMapping("/clue/{clueId}")
     public AjaxResult getFollowRecordByClueId(@PathVariable("clueId") Integer clueId) {
         return followRecordService.getFollowRecordByClueId(clueId);
+    }
+    @PreAuthorize("hasAnyPermissions('tienchin:business:follow','tienchin:business:view')")
+    @GetMapping("/business/{businessId}")
+    public AjaxResult getFollowRecordByBusinessId(@PathVariable("businessId") Integer businessId) {
+        return followRecordService.getFollowRecordByBusinessId(businessId);
     }
 
 }

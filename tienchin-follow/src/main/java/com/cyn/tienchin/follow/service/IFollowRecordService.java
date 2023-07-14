@@ -20,4 +20,11 @@ public interface IFollowRecordService extends IService<FollowRecord> {
      * @return
      */
     AjaxResult getFollowRecordByClueId(Integer clueId);
+
+    /**
+     * 根据`businessId`获取所有跟踪记录
+     * @param businessId
+     * @return
+     */
+    AjaxResult getFollowRecordByBusinessId(Integer businessId);
 }

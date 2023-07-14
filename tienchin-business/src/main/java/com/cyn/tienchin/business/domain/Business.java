@@ -3,7 +3,6 @@ package com.cyn.tienchin.business.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import com.cyn.tienchin.common.validator.AddGroup;
 import com.cyn.tienchin.common.validator.EditGroup;
-import org.apache.poi.hpsf.Decimal;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -177,7 +176,7 @@ public class Business implements Serializable {
     private Double weight;
 
     /**
-     * 身高m
+     * 身高cm
      */
     private Double height;
 
@@ -191,20 +190,32 @@ public class Business implements Serializable {
      */
     private String otherIntention;
     /**
+     * 健身原因
+     */
+    private String reason;
+    /**
      * 意向金
      */
-    private Decimal money;
+    private Double money;
 
     /**
      * 线索Id
      */
     private Integer clueId;
 
-    public Decimal getMoney() {
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Decimal money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 
@@ -473,7 +484,7 @@ public class Business implements Serializable {
     }
 
     @Override
-    public String  toString() {
+    public String toString() {
         return "Business{" +
                 "businessId=" + businessId +
                 ", customerName='" + customerName + '\'' +
@@ -507,6 +518,7 @@ public class Business implements Serializable {
                 ", height=" + height +
                 ", hours=" + hours +
                 ", otherIntention='" + otherIntention + '\'' +
+                ", reason='" + reason + '\'' +
                 ", money=" + money +
                 ", clueId=" + clueId +
                 '}';

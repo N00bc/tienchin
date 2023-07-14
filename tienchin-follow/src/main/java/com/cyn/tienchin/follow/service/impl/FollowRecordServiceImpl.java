@@ -44,4 +44,21 @@ public class FollowRecordServiceImpl extends ServiceImpl<FollowRecordMapper, Fol
         List<FollowRecord> list = list(lambdaQueryWrapper);
         return AjaxResult.success(list);
     }
+
+    /**
+     * 根据`businessId`获取所有跟踪记录
+     *
+     * @param businessId
+     * @return
+     */
+    @Override
+    public AjaxResult getFollowRecordByBusinessId(Integer businessId) {
+        LambdaQueryWrapper<FollowRecord> lambdaQueryWrapper = Wrappers.<FollowRecord>lambdaQuery()
+                .eq(FollowRecord::getAssignId, businessId)
+                .eq(FollowRecord::getType, TienChinConstants.BUSINESS_TYPE)
+                .orderByDesc(FollowRecord::getUpdateTime)
+                .orderByDesc(FollowRecord::getCreateTime);
+        List<FollowRecord> list = list(lambdaQueryWrapper);
+        return AjaxResult.success(list);
+    }
 }

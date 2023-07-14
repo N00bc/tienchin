@@ -16,6 +16,7 @@ import com.cyn.tienchin.common.enums.BusinessType;
 import com.cyn.tienchin.course.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -98,6 +99,7 @@ public class BusinessController extends BaseController {
 
     /**
      * 获取
+     *
      * @param id
      * @return
      */
@@ -109,12 +111,13 @@ public class BusinessController extends BaseController {
 
     /**
      * 保存客户详细信息
+     *
      * @param businessFollow
      * @return
      */
     @PreAuthorize("hasPermission('tienchin:business:follow')")
-    @PostMapping("/follow")
-    public AjaxResult insertBusinessFollow(BusinessFollow businessFollow){
+    @PutMapping("/follow")
+    public AjaxResult insertBusinessFollow(@RequestBody @Validated BusinessFollow businessFollow) {
         return businessService.insertBusinessFollow(businessFollow);
     }
 }
