@@ -25,7 +25,10 @@
             <groupId>com.cyn</groupId>
             <artifactId>tienchin-assign</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-follow</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

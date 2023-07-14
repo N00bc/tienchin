@@ -1,13 +1,13 @@
-package com.cyn.tienchin.clue.service.impl;
+package com.cyn.tienchin.follow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cyn.tienchin.clue.domain.FollowRecord;
-import com.cyn.tienchin.clue.mapper.FollowRecordMapper;
-import com.cyn.tienchin.clue.service.IFollowRecordService;
 import com.cyn.tienchin.common.constant.TienChinConstants;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
+import com.cyn.tienchin.follow.domain.FollowRecord;
+import com.cyn.tienchin.follow.mapper.FollowRecordMapper;
+import com.cyn.tienchin.follow.service.IFollowRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

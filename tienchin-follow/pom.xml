@@ -9,34 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tienchin-clue</artifactId>
+    <artifactId>tienchin-follow</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
-    <description>线索模块</description>
     <dependencies>
-        <!--公共模块-->
         <dependency>
             <groupId>com.cyn</groupId>
             <artifactId>tienchin-common</artifactId>
         </dependency>
-        <!--商机模块-->
-        <dependency>
-            <groupId>com.cyn</groupId>
-            <artifactId>tienchin-business</artifactId>
-        </dependency>
-        <!--分派模块-->
-        <dependency>
-            <groupId>com.cyn</groupId>
-            <artifactId>tienchin-assign</artifactId>
-        </dependency>
-        <!--商机/线索跟踪记录-->
-        <dependency>
-            <groupId>com.cyn</groupId>
-            <artifactId>tienchin-follow</artifactId>
-        </dependency>
     </dependencies>
+
 </project>

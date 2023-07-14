@@ -1,8 +1,8 @@
-package com.cyn.tienchin.clue.service;
+package com.cyn.tienchin.follow.service;
 
-import com.cyn.tienchin.clue.domain.FollowRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
+import com.cyn.tienchin.follow.domain.FollowRecord;
 
 /**
  * <p>

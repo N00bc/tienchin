@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cyn.tienchin.activity.domain.Activity;
 import com.cyn.tienchin.activity.service.IActivityService;
 import com.cyn.tienchin.business.domain.Business;
+import com.cyn.tienchin.business.domain.BusinessFollow;
 import com.cyn.tienchin.business.domain.BusinessSummary;
 import com.cyn.tienchin.business.service.IBusinessService;
 import com.cyn.tienchin.channel.service.IChannelService;
@@ -12,6 +13,7 @@ import com.cyn.tienchin.common.core.controller.BaseController;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.page.TableDataInfo;
 import com.cyn.tienchin.common.enums.BusinessType;
+import com.cyn.tienchin.course.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,8 @@ public class BusinessController extends BaseController {
     private IActivityService activityService;
     @Autowired
     private IChannelService channelService;
+    @Autowired
+    private ICourseService courseService;
 
     @PreAuthorize("hasPermission('tienchin:business:list')")
     @GetMapping("/list")
@@ -78,5 +82,39 @@ public class BusinessController extends BaseController {
     @GetMapping("/activity/{channelId}")
     public AjaxResult getAllActivities(@PathVariable("channelId") Integer channelId) {
         return AjaxResult.success(activityService.list(Wrappers.<Activity>lambdaQuery().eq(Activity::getChannelId, channelId)));
+    }
+
+    /**
+     * 根据课程类型列出对应课程
+     *
+     * @param type
+     * @return
+     */
+    @PreAuthorize("hasAnyPermissions('tienchin:business:follow','tienchin:business:view')")
+    @GetMapping("/course/{type}")
+    public AjaxResult getCourseByCourseType(@PathVariable("type") Integer type) {
+        return courseService.selectCourseByCourseType(type);
+    }
+
+    /**
+     * 获取
+     * @param id
+     * @return
+     */
+    @GetMapping("/{businessId}")
+    @PreAuthorize("hasAnyPermissions('tienchin:business:follow','tienchin:business:view')")
+    public AjaxResult getBusinessById(@PathVariable("businessId") Integer id) {
+        return businessService.getBusinessById(id);
+    }
+
+    /**
+     * 保存客户详细信息
+     * @param businessFollow
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:business:follow')")
+    @PostMapping("/follow")
+    public AjaxResult insertBusinessFollow(BusinessFollow businessFollow){
+        return businessService.insertBusinessFollow(businessFollow);
     }
 }

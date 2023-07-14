@@ -40,4 +40,11 @@ public interface ICourseService extends IService<Course> {
      * @return
      */
     AjaxResult updateCourse(CourseVo courseVo);
+
+    /**
+     * 根据课程类型选择课程
+     * @param type
+     * @return
+     */
+    AjaxResult selectCourseByCourseType(Integer type);
 }

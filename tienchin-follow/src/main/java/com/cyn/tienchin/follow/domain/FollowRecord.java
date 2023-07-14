@@ -1,4 +1,4 @@
-package com.cyn.tienchin.clue.domain;
+package com.cyn.tienchin.follow.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

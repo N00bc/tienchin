@@ -20,6 +20,7 @@
         <module>tienchin-clue</module>
         <module>tienchin-business</module>
         <module>tienchin-assign</module>
+        <module>tienchin-follow</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -228,6 +229,12 @@
             <dependency>
                 <groupId>com.cyn</groupId>
                 <artifactId>tienchin-assign</artifactId>
+                <version>${tienchin.version}</version>
+            </dependency>
+            <!--商机/线索跟踪管理-->
+            <dependency>
+                <groupId>com.cyn</groupId>
+                <artifactId>tienchin-follow</artifactId>
                 <version>${tienchin.version}</version>
             </dependency>
             <!--mybatis plus code generator-->

@@ -4,12 +4,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.assign.service.IAssignService;
 import com.cyn.tienchin.business.domain.Business;
+import com.cyn.tienchin.business.domain.BusinessFollow;
 import com.cyn.tienchin.business.domain.BusinessSummary;
 import com.cyn.tienchin.business.mapper.BusinessMapper;
 import com.cyn.tienchin.business.service.IBusinessService;
 import com.cyn.tienchin.common.constant.TienChinConstants;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.utils.SecurityUtils;
+import com.cyn.tienchin.follow.domain.FollowRecord;
+import com.cyn.tienchin.follow.service.IFollowRecordService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.cyn.tienchin.assign.domain.Assign;
 import org.springframework.stereotype.Service;
@@ -30,6 +34,8 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     private BusinessMapper businessMapper;
     @Autowired
     private IAssignService assignService;
+    @Autowired
+    private IFollowRecordService followRecordService;
 
     /**
      * 展示商机摘要
@@ -62,6 +68,55 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
         Assign assign = getAssignByBusiness(business);
         assignService.save(assign);
         return AjaxResult.success("添加商机成功");
+    }
+
+    /**
+     * 根据`businessId`查询`bussinessDetails`
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public AjaxResult getBusinessById(Integer id) {
+        Business business = getById(id);
+        return AjaxResult.success(business);
+    }
+
+    /**
+     * 保存客户详细信息
+     * 1.更新线索表
+     * 2.添加一个跟踪记录
+     *
+     * @param businessFollow
+     * @return
+     */
+    @Override
+    public AjaxResult insertBusinessFollow(BusinessFollow businessFollow) {
+        // 1.更新线索表
+        Business business = new Business();
+        BeanUtils.copyProperties(businessFollow, business);
+        updateById(business);
+        // 2.添加一条跟踪记录
+        FollowRecord followRecord = generateFollowRecordByBusinessFollow(businessFollow);
+        followRecordService.save(followRecord);
+        return AjaxResult.success("更新成功");
+    }
+
+
+    // =========================================== Private Methods ===========================================
+
+    /**
+     * 生成`FollowRecord`
+     *
+     * @param businessFollow
+     * @return
+     */
+    private FollowRecord generateFollowRecordByBusinessFollow(BusinessFollow businessFollow) {
+        FollowRecord followRecord = new FollowRecord();
+        followRecord.setInfo(businessFollow.getInfo());
+        followRecord.setType(TienChinConstants.BUSINESS_TYPE);
+        followRecord.setAssignId(businessFollow.getBusinessId());
+        return followRecord;
     }
 
     /**

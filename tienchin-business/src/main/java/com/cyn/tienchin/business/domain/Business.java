@@ -3,6 +3,7 @@ package com.cyn.tienchin.business.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import com.cyn.tienchin.common.validator.AddGroup;
 import com.cyn.tienchin.common.validator.EditGroup;
+import org.apache.poi.hpsf.Decimal;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -93,6 +94,7 @@ public class Business implements Serializable {
     /**
      * 下次跟进时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime nextTime;
 
     /**
@@ -188,11 +190,23 @@ public class Business implements Serializable {
      * 其他意向
      */
     private String otherIntention;
+    /**
+     * 意向金
+     */
+    private Decimal money;
 
     /**
      * 线索Id
      */
     private Integer clueId;
+
+    public Decimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(Decimal money) {
+        this.money = money;
+    }
 
     public Integer getBusinessId() {
         return businessId;
@@ -459,7 +473,7 @@ public class Business implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String  toString() {
         return "Business{" +
                 "businessId=" + businessId +
                 ", customerName='" + customerName + '\'' +
@@ -493,6 +507,7 @@ public class Business implements Serializable {
                 ", height=" + height +
                 ", hours=" + hours +
                 ", otherIntention='" + otherIntention + '\'' +
+                ", money=" + money +
                 ", clueId=" + clueId +
                 '}';
     }

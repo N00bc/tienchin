@@ -1,7 +1,7 @@
-package com.cyn.tienchin.clue.mapper;
+package com.cyn.tienchin.follow.mapper;
 
-import com.cyn.tienchin.clue.domain.FollowRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cyn.tienchin.follow.domain.FollowRecord;
 
 /**
  * <p>

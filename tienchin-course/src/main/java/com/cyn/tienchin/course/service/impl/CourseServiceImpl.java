@@ -73,4 +73,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         updateById(course);
         return AjaxResult.success("更新课程成功");
     }
+
+    /**
+     * 根据课程类型选择课程
+     *
+     * @param type
+     * @return
+     */
+    @Override
+    public AjaxResult selectCourseByCourseType(Integer type) {
+        List<Course> list = list(Wrappers.<Course>lambdaQuery().eq(Course::getType, type));
+        return AjaxResult.success(list);
+    }
 }
