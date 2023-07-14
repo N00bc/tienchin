@@ -6,6 +6,7 @@ import com.cyn.tienchin.activity.service.IActivityService;
 import com.cyn.tienchin.business.domain.Business;
 import com.cyn.tienchin.business.domain.BusinessFollow;
 import com.cyn.tienchin.business.domain.BusinessSummary;
+import com.cyn.tienchin.business.domain.BusinessVo;
 import com.cyn.tienchin.business.service.IBusinessService;
 import com.cyn.tienchin.channel.service.IChannelService;
 import com.cyn.tienchin.common.annotation.Log;
@@ -43,9 +44,9 @@ public class BusinessController extends BaseController {
 
     @PreAuthorize("hasPermission('tienchin:business:list')")
     @GetMapping("/list")
-    public TableDataInfo list() {
+    public TableDataInfo list(BusinessVo businessVo) {
         startPage();
-        List<BusinessSummary> list = businessService.selectBusinessSummaryList();
+        List<BusinessSummary> list = businessService.selectBusinessSummaryList(businessVo);
         return getDataTable(list);
     }
 
@@ -61,6 +62,13 @@ public class BusinessController extends BaseController {
     @PostMapping
     public AjaxResult add(@RequestBody Business business) {
         return businessService.addBusiness(business);
+    }
+
+    @PreAuthorize("hasPermission('tienchin:business:edit')")
+    @Log(title = "商机管理", businessType = BusinessType.INSERT)
+    @PutMapping
+    public AjaxResult editBusiness(@RequestBody Business business) {
+        return businessService.editBusiness(business);
     }
 
     /**
@@ -120,4 +128,22 @@ public class BusinessController extends BaseController {
     public AjaxResult insertBusinessFollow(@RequestBody @Validated BusinessFollow businessFollow) {
         return businessService.insertBusinessFollow(businessFollow);
     }
+
+    /**
+     * 根据商机`Id`获取商机摘要信息
+     *
+     * @param businessId
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:business:query')")
+    @GetMapping("/summary/{businessId}")
+    public AjaxResult getBusinessSummaryById(@PathVariable("businessId") Integer businessId) {
+        return businessService.getBusinessSummaryById(businessId);
+    }
+
+    @DeleteMapping("/businessIds")
+    public AjaxResult deleteBusinessByIds(@PathVariable("businessIds") Long[] ids) {
+        return businessService.removeBusinessByIds(ids);
+    }
+
 }

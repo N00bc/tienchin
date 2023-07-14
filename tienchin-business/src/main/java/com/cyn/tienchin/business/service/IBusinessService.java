@@ -4,6 +4,7 @@ import com.cyn.tienchin.business.domain.Business;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cyn.tienchin.business.domain.BusinessFollow;
 import com.cyn.tienchin.business.domain.BusinessSummary;
+import com.cyn.tienchin.business.domain.BusinessVo;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 
 import java.util.List;
@@ -22,8 +23,9 @@ public interface IBusinessService extends IService<Business> {
      * 展示商机摘要
      *
      * @return
+     * @param businessVo
      */
-    List<BusinessSummary> selectBusinessSummaryList();
+    List<BusinessSummary> selectBusinessSummaryList(BusinessVo businessVo);
 
     /**
      * 添加新商机
@@ -45,4 +47,25 @@ public interface IBusinessService extends IService<Business> {
      * @return
      */
     AjaxResult insertBusinessFollow(BusinessFollow businessFollow);
+
+    /**
+     * 根据商机id获取`BusinessSummary`
+     * @param businessId
+     * @return
+     */
+    AjaxResult getBusinessSummaryById(Integer businessId);
+
+    /**
+     * 更新摘要信息
+     * @param business
+     * @return
+     */
+    AjaxResult editBusiness(Business business);
+
+    /**
+     * 根据id删除商机
+     * @param ids
+     * @return
+     */
+    AjaxResult removeBusinessByIds(Long[] ids);
 }

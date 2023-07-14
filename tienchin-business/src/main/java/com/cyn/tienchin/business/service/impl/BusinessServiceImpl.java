@@ -2,10 +2,9 @@ package com.cyn.tienchin.business.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cyn.tienchin.assign.domain.Assign;
 import com.cyn.tienchin.assign.service.IAssignService;
-import com.cyn.tienchin.business.domain.Business;
-import com.cyn.tienchin.business.domain.BusinessFollow;
-import com.cyn.tienchin.business.domain.BusinessSummary;
+import com.cyn.tienchin.business.domain.*;
 import com.cyn.tienchin.business.mapper.BusinessMapper;
 import com.cyn.tienchin.business.service.IBusinessService;
 import com.cyn.tienchin.common.constant.TienChinConstants;
@@ -15,9 +14,9 @@ import com.cyn.tienchin.follow.domain.FollowRecord;
 import com.cyn.tienchin.follow.service.IFollowRecordService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.cyn.tienchin.assign.domain.Assign;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,10 +40,11 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
      * 展示商机摘要
      *
      * @return
+     * @param businessVo
      */
     @Override
-    public List<BusinessSummary> selectBusinessSummaryList() {
-        List<BusinessSummary> businessSummaryList = businessMapper.selectBusinessSummaryList();
+    public List<BusinessSummary> selectBusinessSummaryList(BusinessVo businessVo) {
+        List<BusinessSummary> businessSummaryList = businessMapper.selectBusinessSummaryList(businessVo);
         return businessSummaryList;
     }
 
@@ -102,7 +102,43 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
         return AjaxResult.success("更新成功");
     }
 
+    /**
+     * 根据商机id获取`BusinessSummary`
+     *
+     * @param businessId
+     * @return
+     */
+    @Override
+    public AjaxResult getBusinessSummaryById(Integer businessId) {
+        Business business = getById(businessId);
+        BusinessSummaryVo businessSummaryVo = new BusinessSummaryVo();
+        BeanUtils.copyProperties(business, businessSummaryVo);
+        return AjaxResult.success(businessSummaryVo);
+    }
 
+    /**
+     * 更新摘要信息
+     *
+     * @param business
+     * @return
+     */
+    @Override
+    public AjaxResult editBusiness(Business business) {
+        updateById(business);
+        return AjaxResult.success("更新商机成功");
+    }
+
+    /**
+     * 根据id删除商机
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public AjaxResult removeBusinessByIds(Long[] ids) {
+        removeBatchByIds(Arrays.asList(ids));
+        return AjaxResult.success("删除商机成功");
+    }
     // =========================================== Private Methods ===========================================
 
     /**
