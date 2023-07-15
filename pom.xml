@@ -21,6 +21,7 @@
         <module>tienchin-business</module>
         <module>tienchin-assign</module>
         <module>tienchin-follow</module>
+        <module>tienchin-contract</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -48,6 +49,7 @@
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
         <springboot.version>2.5.14</springboot.version>
+        <flowable.version>6.7.2</flowable.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -236,6 +238,17 @@
                 <groupId>com.cyn</groupId>
                 <artifactId>tienchin-follow</artifactId>
                 <version>${tienchin.version}</version>
+            </dependency>
+            <!--合同管理-->
+            <dependency>
+                <groupId>com.cyn</groupId>
+                <artifactId>tienchin-contract</artifactId>
+                <version>${tienchin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
             </dependency>
             <!--mybatis plus code generator-->
             <dependency>

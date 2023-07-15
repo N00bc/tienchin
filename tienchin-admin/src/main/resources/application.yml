@@ -134,3 +134,8 @@ mybatis-plus:
     db-config:
       logic-delete-value: 2 # 逻辑已删除值(默认为 2)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+flowable:
+  async-executor-activate: false
+  database-schema-update: true
+  idm:
+    password-encoder: spring_delegating
