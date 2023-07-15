@@ -50,6 +50,7 @@
         <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
         <springboot.version>2.5.14</springboot.version>
         <flowable.version>6.7.2</flowable.version>
+        <minio.version>1.0</minio.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -255,6 +256,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cyn</groupId>
+                <artifactId>minio-spring-boot-starter</artifactId>
+                <version>${minio.version}</version>
             </dependency>
 
         </dependencies>
