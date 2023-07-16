@@ -82,4 +82,8 @@ public class TienChinConstants {
      * contract.status:审核失败
      */
     public static final Integer REJECT = 3;
+    /**
+     * xml的唯一id
+     */
+    public static final String CONTRACT_PROCESS_DEFINITION_ID = "tienchin_contract_approve";
 }

@@ -2,9 +2,12 @@ package com.cyn.tienchin.web.controller.tienchin.contract;
 
 import com.cyn.minio.autoconfigure.service.IFileStorageService;
 import com.cyn.tienchin.business.service.IBusinessService;
+import com.cyn.tienchin.common.core.controller.BaseController;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.domain.UploadFileResponse;
+import com.cyn.tienchin.common.core.page.TableDataInfo;
 import com.cyn.tienchin.contract.domain.Contract;
+import com.cyn.tienchin.contract.domain.ContractSummary;
 import com.cyn.tienchin.contract.service.IContractService;
 import com.cyn.tienchin.course.service.ICourseService;
 import com.cyn.tienchin.system.service.ISysUserService;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>
@@ -25,7 +29,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/tienchin/contract")
-public class ContractController {
+public class ContractController extends BaseController {
     @Autowired
     private ICourseService courseService;
     @Autowired
@@ -128,6 +132,18 @@ public class ContractController {
     @GetMapping("/customer/{phoneNumber}")
     public AjaxResult getCustomerNameByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         return businessService.getCustomerNameByPhoneNumber(phoneNumber);
+    }
+
+    /**
+     * 查询当前用户待审批的任务
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:contract:list')")
+    @GetMapping("/unapprove")
+    public TableDataInfo getUnapproveTask(){
+        startPage();
+        List<ContractSummary> result = contractService.getUnapproveTask();
+        return getDataTable(result);
     }
 
 }

@@ -3,6 +3,9 @@ package com.cyn.tienchin.contract.service;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.contract.domain.Contract;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cyn.tienchin.contract.domain.ContractSummary;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +23,11 @@ public interface IContractService extends IService<Contract> {
      * @return
      */
     AjaxResult addContract(Contract contract);
+
+    /**
+     * 查询待审批流程
+     * @return
+     */
+    List<ContractSummary> getUnapproveTask();
+
 }
