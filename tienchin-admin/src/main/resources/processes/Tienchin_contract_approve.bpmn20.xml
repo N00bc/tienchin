@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef" exporter="Flowable Open Source Modeler" exporterVersion="6.7.2">
   <process id="tienchin_contract_approve" name="Tienchin合同审批" isExecutable="true">
-    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
-    <userTask id="sid-285E1713-AC8D-4518-93F3-CA9E9E30711E" name="提交审批" flowable:assignee="$INITIATOR" flowable:formFieldValidation="true">
+    <startEvent id="startEvent1" flowable:formFieldValidation="true" ></startEvent>
+    <userTask id="submitContractTask" name="提交审批" flowable:assignee="${currentUser}" flowable:formFieldValidation="true">
       <extensionElements>
         <modeler:activiti-idm-initiator xmlns:modeler="http://flowable.org/modeler"><![CDATA[true]]></modeler:activiti-idm-initiator>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="sid-6A5C8BA8-D43A-4155-953B-EA422F1CE539" sourceRef="startEvent1" targetRef="sid-285E1713-AC8D-4518-93F3-CA9E9E30711E"></sequenceFlow>
-    <userTask id="sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155" name="合同审批" flowable:assignee="${approve_user}" flowable:formFieldValidation="true">
+    <sequenceFlow id="sid-6A5C8BA8-D43A-4155-953B-EA422F1CE539" sourceRef="startEvent1" targetRef="submitContractTask"></sequenceFlow>
+    <userTask id="sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155" name="合同审批" flowable:assignee="${approveUser}" flowable:formFieldValidation="true">
       <extensionElements>
         <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="sid-D3AE1E8E-4416-45C8-B8CD-2E4FE5656AD0" sourceRef="sid-285E1713-AC8D-4518-93F3-CA9E9E30711E" targetRef="sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155"></sequenceFlow>
+    <sequenceFlow id="sid-D3AE1E8E-4416-45C8-B8CD-2E4FE5656AD0" sourceRef="submitContractTask" targetRef="sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155"></sequenceFlow>
     <exclusiveGateway id="sid-CDEAC675-CF30-40C7-9C5A-15A24A646280"></exclusiveGateway>
     <sequenceFlow id="sid-27733C45-9F26-4868-AEE7-DA9A1560942A" sourceRef="sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155" targetRef="sid-CDEAC675-CF30-40C7-9C5A-15A24A646280"></sequenceFlow>
     <endEvent id="sid-C0659547-7B53-4055-B9DA-5D5CA669AD3D"></endEvent>
@@ -21,7 +21,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approve}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-62CFDF4A-3A6C-428C-8912-09396BB7660B" name="审批未通过
-" sourceRef="sid-CDEAC675-CF30-40C7-9C5A-15A24A646280" targetRef="sid-285E1713-AC8D-4518-93F3-CA9E9E30711E">
+" sourceRef="sid-CDEAC675-CF30-40C7-9C5A-15A24A646280" targetRef="submitContractTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approve}]]></conditionExpression>
     </sequenceFlow>
   </process>
@@ -30,7 +30,7 @@
       <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
         <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sid-285E1713-AC8D-4518-93F3-CA9E9E30711E" id="BPMNShape_sid-285E1713-AC8D-4518-93F3-CA9E9E30711E">
+      <bpmndi:BPMNShape bpmnElement="submitContractTask" id="BPMNShape_submitContractTask">
         <omgdc:Bounds height="80.0" width="100.0" x="175.0" y="138.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155" id="BPMNShape_sid-8824EC38-8F18-47E0-AEF7-2F5DD9604155">

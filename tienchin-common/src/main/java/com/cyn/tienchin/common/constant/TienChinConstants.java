@@ -44,9 +44,14 @@ public class TienChinConstants {
      * 已回收
      */
     public static final Integer BUSINESS_RECOVER = 3;
-
+    /**
+     * 最新数据
+     */
     public static final Integer IS_LATEST = 1;
-    public static final Integer IS_NOT_LATEST = 2;
+    /**
+     * 非最新数据
+     */
+    public static final Integer IS_NOT_LATEST = 0;
 
     /**
      * 默认转为商机后一手处理人
@@ -63,5 +68,18 @@ public class TienChinConstants {
     /**
      * admin的id
      */
-    private static final Integer ADMIN_ID = 1;
+    public static final Integer ADMIN_ID = 1;
+    /**
+     * contract.status:合同待审核
+     */
+    public static final Integer WAITING_APPROVE = 1;
+
+    /**
+     * contract.status:合同通过审核
+     */
+    public static final Integer IS_APPROVE = 2;
+    /**
+     * contract.status:审核失败
+     */
+    public static final Integer REJECT = 3;
 }

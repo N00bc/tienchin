@@ -68,4 +68,11 @@ public interface IBusinessService extends IService<Business> {
      * @return
      */
     AjaxResult removeBusinessByIds(Long[] ids);
+
+    /**
+     * 根据客户手机号查找客户姓名
+     * @param phoneNumber
+     * @return
+     */
+    AjaxResult getCustomerNameByPhoneNumber(String phoneNumber);
 }

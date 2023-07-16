@@ -1,5 +1,6 @@
 package com.cyn.tienchin.business.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cyn.tienchin.assign.domain.Assign;
@@ -138,6 +139,26 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     public AjaxResult removeBusinessByIds(Long[] ids) {
         removeBatchByIds(Arrays.asList(ids));
         return AjaxResult.success("删除商机成功");
+    }
+
+    /**
+     * 根据客户手机号查找客户姓名
+     *
+     * @param phoneNumber
+     * @return
+     */
+    @Override
+    public AjaxResult getCustomerNameByPhoneNumber(String phoneNumber) {
+        LambdaQueryWrapper<Business> lambdaQueryWrapper = Wrappers.<Business>lambdaQuery()
+                .eq(Business::getPhoneNumber, phoneNumber)
+                .orderByDesc(Business::getCreateTime)
+                .last("limit 1");
+        List<Business> businessList = list(lambdaQueryWrapper);
+        if(!businessList.isEmpty()){
+            return AjaxResult.success(businessList.get(0).getCustomerName());
+        }else {
+            return AjaxResult.error("当前手机号不存在");
+        }
     }
     // =========================================== Private Methods ===========================================
 

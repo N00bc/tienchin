@@ -1,6 +1,7 @@
 package com.cyn.tienchin.web.controller.tienchin.contract;
 
 import com.cyn.minio.autoconfigure.service.IFileStorageService;
+import com.cyn.tienchin.business.service.IBusinessService;
 import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.domain.UploadFileResponse;
 import com.cyn.tienchin.contract.domain.Contract;
@@ -33,6 +34,8 @@ public class ContractController {
     private IContractService contractService;
     @Autowired
     private ISysUserService sysUserService;
+    @Autowired
+    private IBusinessService businessService;
 
     /**
      * 根据`type`查找对应课程
@@ -99,7 +102,7 @@ public class ContractController {
      * 顶部搜索栏:根据拥有人查找
      * @return
      */
-    @PreAuthorize("hasPermission('tienchin:contract:list')")
+    @PreAuthorize("hasPermission('tienchin:contract:query')")
     @GetMapping("/owner")
     public AjaxResult getOwnerList() {
         return sysUserService.getOwnerList();
@@ -110,9 +113,21 @@ public class ContractController {
      * @param deptId
      * @return
      */
-    @PreAuthorize("hasPermission('tienchin:contract:assign')")
+    @PreAuthorize("hasPermission('tienchin:contract:add')")
     @GetMapping("/users/{deptId}")
     public AjaxResult getUserListByDeptId(@PathVariable("deptId") Long deptId) {
         return sysUserService.getUserByDeptId(deptId);
     }
+    /**
+     * 根据客户手机号查找客户姓名
+     *
+     * @param phoneNumber
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:contract:add')")
+    @GetMapping("/customer/{phoneNumber}")
+    public AjaxResult getCustomerNameByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+        return businessService.getCustomerNameByPhoneNumber(phoneNumber);
+    }
+
 }
