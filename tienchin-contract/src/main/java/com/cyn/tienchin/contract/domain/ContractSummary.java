@@ -40,6 +40,30 @@ public class ContractSummary {
      * 渠道名称
      */
     private String channelName;
+    /**
+     * 文件存储路径
+     */
+    private String filePath;
+    /**
+     * 拒绝或同意理由
+     */
+    private String reason;
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     public Integer getContractId() {
         return contractId;
@@ -116,6 +140,8 @@ public class ContractSummary {
                 ", contractPrice=" + contractPrice +
                 ", activityName='" + activityName + '\'' +
                 ", channelName='" + channelName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", reason='" + reason + '\'' +
                 '}';
     }
 }

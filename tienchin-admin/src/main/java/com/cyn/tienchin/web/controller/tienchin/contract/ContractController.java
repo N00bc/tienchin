@@ -7,6 +7,7 @@ import com.cyn.tienchin.common.core.domain.AjaxResult;
 import com.cyn.tienchin.common.core.domain.UploadFileResponse;
 import com.cyn.tienchin.common.core.page.TableDataInfo;
 import com.cyn.tienchin.contract.domain.Contract;
+import com.cyn.tienchin.contract.domain.ContractApproveInfo;
 import com.cyn.tienchin.contract.domain.ContractSummary;
 import com.cyn.tienchin.contract.service.IContractService;
 import com.cyn.tienchin.course.service.ICourseService;
@@ -104,6 +105,7 @@ public class ContractController extends BaseController {
 
     /**
      * 顶部搜索栏:根据拥有人查找
+     *
      * @return
      */
     @PreAuthorize("hasPermission('tienchin:contract:query')")
@@ -111,6 +113,7 @@ public class ContractController extends BaseController {
     public AjaxResult getOwnerList() {
         return sysUserService.getOwnerList();
     }
+
     /**
      * 根据部门id查询部门员工信息
      *
@@ -122,6 +125,7 @@ public class ContractController extends BaseController {
     public AjaxResult getUserListByDeptId(@PathVariable("deptId") Long deptId) {
         return sysUserService.getUserByDeptId(deptId);
     }
+
     /**
      * 根据客户手机号查找客户姓名
      *
@@ -136,14 +140,69 @@ public class ContractController extends BaseController {
 
     /**
      * 查询当前用户待审批的任务
+     *
      * @return
      */
     @PreAuthorize("hasPermission('tienchin:contract:list')")
     @GetMapping("/unapprove")
-    public TableDataInfo getUnapproveTask(){
+    public TableDataInfo getUnapproveTask() {
         startPage();
         List<ContractSummary> result = contractService.getUnapproveTask();
         return getDataTable(result);
     }
+    /**
+     * 查询当前用户已提交待审批任务
+     *
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:contract:list')")
+    @GetMapping("/committedTask")
+    public TableDataInfo committedTask() {
+        startPage();
+        List<ContractSummary> result = contractService.getCommittedTask();
+        return getDataTable(result);
+    }
 
+    /**
+     * 审批任务
+     * @param contractApproveInfo
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:contract:approve')")
+    @PostMapping("/approve")
+    public AjaxResult approveOrReject(@RequestBody ContractApproveInfo contractApproveInfo){
+        return contractService.approveOrReject(contractApproveInfo);
+    }
+
+    /**
+     * 根据合同id查看合同
+     *
+     * @param id
+     * @return
+     */
+    @PreAuthorize("hasPermission('tienchin:contract:view')")
+    @GetMapping("/view/{contractId}")
+    public AjaxResult getContractBytId(@PathVariable("contractId") Integer id) {
+        return contractService.getContractBytId(id);
+    }
+
+    /**
+     * @param year  年
+     * @param month 月
+     * @param day   日
+     * @param name  文件名
+     */
+    @PreAuthorize("hasPermission('tienchin:contract:view')")
+    @GetMapping("/pdf/{year}/{month}/{day}/{name}")
+    public AjaxResult showContractPdf(@PathVariable("year") String year,
+                                      @PathVariable("month") String month,
+                                      @PathVariable("day") String day,
+                                      @PathVariable("name") String name) {
+        String fileName = year + SEGMENT + month + SEGMENT + day + SEGMENT + name;
+        byte[] bytes = minioService.downLoadFileByName(fileName, BUCKET_NAME);
+        return contractService.transWord2Pdf(bytes, fileName);
+    }
+
+    public static final String SEGMENT = "/";
+    public static final String BUCKET_NAME = "contract";
 }

@@ -4,9 +4,21 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import io.minio.GetObjectArgs;
+import io.minio.ListObjectsArgs;
+import io.minio.MinioClient;
+import io.minio.Result;
+import io.minio.errors.*;
+import io.minio.messages.Item;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Types;
 import java.util.Collections;
 
@@ -48,5 +60,38 @@ public class TestChannel {
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
+    }
+
+    @Autowired
+    private MinioClient minioClient;
+
+    @Test
+    void minIO() throws ServerException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        Iterable<Result<Item>> results = minioClient.listObjects(
+                ListObjectsArgs.builder().bucket("contract").recursive(true).build());
+        for (Result<Item> result : results) {
+            System.out.println(result.get().objectName());
+        }
+    }
+
+    String fileName = "2023/07/17/test.docx";
+
+    @Test
+    void name() throws ServerException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        try (InputStream stream = minioClient.getObject(
+                GetObjectArgs.builder()
+                        .bucket("contract")
+                        .object(fileName)
+                        .build());
+             FileOutputStream fileOutputStream = new FileOutputStream("D:\\GoogleDownload\\contract.docx")) {
+            // Read data from stream
+
+            byte[] bytes = new byte[1024];
+            int len;
+            while ((len = stream.read(bytes)) > 0) {
+                fileOutputStream.write(bytes, 0, len);
+            }
+        }
+
     }
 }
