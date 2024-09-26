@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyn.tienchin.business.mapper.BusinessMapper">
+
+    <select id="selectBusinessSummaryList" resultType="com.cyn.tienchin.business.domain.BusinessSummary">
+        SELECT tb.business_id,
+        tb.customer_name,
+        tb.phone_number,
+        tb.create_time,
+        tb.STATUS,
+        tb.next_time,
+        ta.user_name AS owner
+        FROM tienchin_business tb
+        LEFT JOIN tienchin_assign ta ON tb.business_id = ta.assign_id
+        AND ta.type = 2
+        AND ta.latest = 1
+        WHERE ta.del_flag = 0 AND tb.del_flag = 0
+        <if test="vo.customerName != null">AND tb.customer_name like concat('%',#{vo.customerName},'%')</if>
+        <if test="vo.status != null">AND tb.status = #{vo.status}</if>
+        <if test="vo.phoneNumber != null">AND tb.phone_number like #{vo.phoneNumber}</if>
+        <if test="vo.channelId != null">AND tb.channel_id = #{vo.channelId}</if>
+        <if test="vo.owner != null">AND ta.user_name like #{vo.owner}</if>
+        <if test="vo.params.beginTime != null">AND tb.create_time >= #{vo.params.beginTime}</if>
+        <if test="vo.params.endTime != null">AND tb.create_time &lt;= #{vo.params.endTime}</if>
+    </select>
+</mapper>

@@ -24,6 +24,7 @@ import com.cyn.tienchin.common.exception.job.TaskException;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysJobServiceImpl implements ISysJobService {
     @Autowired
     private Scheduler scheduler;

@@ -63,10 +63,12 @@ public class TokenService {
                 Claims claims = parseToken(token);
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
+                // 根据规则拼接Redis中的Key 方便下一步获取登录用户信息
                 String userKey = getTokenKey(uuid);
                 LoginUser user = redisCache.getCacheObject(userKey);
                 return user;
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return null;
@@ -98,9 +100,11 @@ public class TokenService {
      * @return 令牌
      */
     public String createToken(LoginUser loginUser) {
+        // 生成token值
         String token = IdUtils.fastUUID();
         loginUser.setToken(token);
         setUserAgent(loginUser);
+        // 第一次会设置当前登录的时间
         refreshToken(loginUser);
 
         Map<String, Object> claims = new HashMap<>();

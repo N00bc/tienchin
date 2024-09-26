@@ -1,16 +1,17 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.List;
-
-import com.cyn.tienchin.common.utils.StringUtils;
-import com.cyn.tienchin.system.service.ISysPostService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.cyn.tienchin.common.constant.UserConstants;
 import com.cyn.tienchin.common.exception.ServiceException;
+import com.cyn.tienchin.common.utils.StringUtils;
 import com.cyn.tienchin.system.domain.SysPost;
 import com.cyn.tienchin.system.mapper.SysPostMapper;
 import com.cyn.tienchin.system.mapper.SysUserPostMapper;
+import com.cyn.tienchin.system.service.ISysPostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 岗位信息 服务层处理
@@ -18,6 +19,7 @@ import com.cyn.tienchin.system.mapper.SysUserPostMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysPostServiceImpl implements ISysPostService {
     @Autowired
     private SysPostMapper postMapper;

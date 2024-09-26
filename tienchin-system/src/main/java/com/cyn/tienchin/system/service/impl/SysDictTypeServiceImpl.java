@@ -25,6 +25,7 @@ import com.cyn.tienchin.system.service.ISysDictTypeService;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Autowired
     private SysDictTypeMapper dictTypeMapper;

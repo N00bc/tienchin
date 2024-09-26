@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyn.tienchin.clue.mapper.ClueMapper">
+
+    <!--需要考虑到线索被转派出去且无人认领所以需要左连接-->
+    <select id="selectClueSummaryList" resultType="com.cyn.tienchin.clue.domain.vo.ClueSummary">
+        SELECT tclue.clue_id,
+        tclue.customer_name,
+        tchannel.channel_name,
+        tclue.phone_number,
+        tclue.status,
+        tassign.user_name AS owner,
+        tclue.create_by,
+        tclue.create_time,
+        tclue.next_time
+        FROM tienchin_clue tclue
+        LEFT JOIN tienchin_channel tchannel
+        ON tclue.channel_id = tchannel.channel_id
+        LEFT JOIN tienchin_assign tassign
+        ON tclue.clue_id = tassign.assign_id
+        AND tassign.latest = 1 AND tassign.type = 0
+        WHERE tclue.del_flag = 0
+        <if test="clueVo.customerName != null">AND tclue.customer_name = #{clueVo.customerName}</if>
+        <if test="clueVo.status != null">AND tclue.status = #{clueVo.status}</if>
+        <if test="clueVo.phoneNumber != null">AND tclue.phone_number = #{clueVo.phoneNumber}</if>
+        <if test="clueVo.owner != null">AND tassign.user_name = #{clueVo.owner}</if>
+        <if test="clueVo.channelId != null">AND tclue.channel_id = #{clueVo.channelId}</if>
+        <if test="clueVo.params.beginTime != null">AND tclue.next_time &gt;= #{clueVo.params.beginTime}</if>
+        <if test="clueVo.params.endTime != null">AND tclue.next_time &lt;= #{clueVo.params.endTime}</if>
+    </select>
+    <select id="getClueDetailsByClueId" resultType="com.cyn.tienchin.clue.domain.vo.ClueDetails">
+        SELECT tclue.clue_id,
+               tclue.customer_name,
+               tclue.gender,
+               tclue.phone_number,
+               tclue.age,
+               tclue.wechat,
+               tclue.qq,
+               tclue.`level`,
+               tclue.create_time,
+               tclue.`subject`,
+               tclue.`status`,
+               tclue.fail_count,
+               tclue.next_time,
+               tclue.create_by   AS allocator,
+               tclue.create_time AS belongTime,
+               tac.info          AS activity_info,
+               tas.user_name     AS owner,
+               tac.activity_name,
+               tch.channel_name
+        FROM tienchin_clue tclue
+                 LEFT JOIN tienchin_channel tch ON tclue.channel_id = tch.channel_id
+                 LEFT JOIN tienchin_activity tac ON tclue.activity_id = tac.activity_id
+                 LEFT JOIN tienchin_assign tas ON tclue.clue_id = tas.assign_id AND tas.latest = 1
+        WHERE tclue.clue_id = #{clueId}
+    </select>
+    <select id="getClueSummaryByClueId" resultType="com.cyn.tienchin.clue.domain.vo.ClueSummary">
+        SELECT tc.clue_id,
+               tc.customer_name,
+               tca.channel_name,
+               tc.phone_number,
+               tc.status,
+               tc.create_by,
+               tc.create_time,
+               tc.next_time,
+               tas.user_name AS owner
+        FROM tienchin_clue tc,
+             tienchin_channel tca,
+             tienchin_assign tas
+        WHERE tc.clue_id = #{clueId}
+          AND tc.clue_id = tas.assign_id
+          AND tc.channel_id = tca.channel_id
+          AND tc.del_flag = 0
+    </select>
+</mapper>

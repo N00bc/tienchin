@@ -1,22 +1,22 @@
 package com.cyn.tienchin.framework.web.service;
 
-import java.util.concurrent.TimeUnit;
-
+import com.cyn.tienchin.common.constant.CacheConstants;
+import com.cyn.tienchin.common.constant.Constants;
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
 import com.cyn.tienchin.common.core.redis.RedisCache;
+import com.cyn.tienchin.common.exception.user.UserPasswordNotMatchException;
+import com.cyn.tienchin.common.exception.user.UserPasswordRetryLimitExceedException;
 import com.cyn.tienchin.common.utils.MessageUtils;
 import com.cyn.tienchin.common.utils.SecurityUtils;
+import com.cyn.tienchin.framework.manager.AsyncManager;
+import com.cyn.tienchin.framework.manager.factory.AsyncFactory;
 import com.cyn.tienchin.framework.security.context.AuthenticationContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import com.cyn.tienchin.common.constant.CacheConstants;
-import com.cyn.tienchin.common.constant.Constants;
-import com.cyn.tienchin.common.exception.user.UserPasswordNotMatchException;
-import com.cyn.tienchin.common.exception.user.UserPasswordRetryLimitExceedException;
-import com.cyn.tienchin.framework.manager.AsyncManager;
-import com.cyn.tienchin.framework.manager.factory.AsyncFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 登录密码方法
@@ -54,20 +54,23 @@ public class SysPasswordService {
         if (retryCount == null) {
             retryCount = 0;
         }
-
+        // 密码重试次数大于五次 会锁住10分钟
         if (retryCount >= Integer.valueOf(maxRetryCount).intValue()) {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL,
                     MessageUtils.message("user.password.retry.limit.exceed", maxRetryCount, lockTime)));
             throw new UserPasswordRetryLimitExceedException(maxRetryCount, lockTime);
         }
-
+        // 通过BCrypt的校验方式校验密码
         if (!matches(user, password)) {
+            // 密码错误重试次数+1
             retryCount = retryCount + 1;
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL,
                     MessageUtils.message("user.password.retry.limit.count", retryCount)));
+            // 记录重试当前用户的重试次数
             redisCache.setCacheObject(getCacheKey(username), retryCount, lockTime, TimeUnit.MINUTES);
             throw new UserPasswordNotMatchException();
         } else {
+            // 登录成功删除用户信息
             clearLoginRecordCache(username);
         }
     }

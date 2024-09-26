@@ -60,6 +60,54 @@
             <groupId>com.cyn</groupId>
             <artifactId>tienchin-generator</artifactId>
         </dependency>
+        <!--渠道管理-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-channel</artifactId>
+        </dependency>
+        <!--活动管理-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-activity</artifactId>
+        </dependency>
+        <!--课程管理-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-course</artifactId>
+        </dependency>
+        <!--线索模块-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-clue</artifactId>
+        </dependency>
+        <!--商机模块-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-business</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>minio-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <!--合同管理-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-contract</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
 
     </dependencies>
 

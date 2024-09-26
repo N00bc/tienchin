@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>tienchin</artifactId>
+        <groupId>com.cyn</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tienchin-clue</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <description>线索模块</description>
+    <dependencies>
+        <!--公共模块-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-common</artifactId>
+        </dependency>
+        <!--商机模块-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-business</artifactId>
+        </dependency>
+        <!--分派模块-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-assign</artifactId>
+        </dependency>
+        <!--商机/线索跟踪记录-->
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>tienchin-follow</artifactId>
+        </dependency>
+    </dependencies>
+</project>

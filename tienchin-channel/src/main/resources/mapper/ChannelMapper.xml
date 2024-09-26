@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyn.tienchin.channel.mapper.ChannelMapper">
+
+    <select id="selectChannelList" resultType="com.cyn.tienchin.channel.domain.Channel">
+        SELECT * FROM tienchin_channel WHERE del_flag = 0
+        <if test="channelVo.channelName != null">
+            AND channel_name LIKE CONCAT('%',#{channelVo.channelName},'%')
+        </if>
+        <if test="channelVo.type != null">
+            AND type = #{channelVo.type}
+        </if>
+        <if test="channelVo.status != null">
+            AND status = #{channelVo.status}
+        </if>
+        <if test="channelVo.params.beginTime != null and  channelVo.params.endTime != null">
+            AND create_time BETWEEN #{channelVo.params.beginTime} AND #{channelVo.params.endTime}
+        </if>
+    </select>
+</mapper>

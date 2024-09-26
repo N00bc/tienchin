@@ -1,26 +1,27 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.cyn.tienchin.common.annotation.DataScope;
+import com.cyn.tienchin.common.constant.UserConstants;
 import com.cyn.tienchin.common.core.domain.TreeSelect;
 import com.cyn.tienchin.common.core.domain.entity.SysDept;
 import com.cyn.tienchin.common.core.domain.entity.SysRole;
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
 import com.cyn.tienchin.common.core.text.Convert;
+import com.cyn.tienchin.common.exception.ServiceException;
 import com.cyn.tienchin.common.utils.SecurityUtils;
 import com.cyn.tienchin.common.utils.StringUtils;
-import com.cyn.tienchin.system.service.ISysDeptService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.cyn.tienchin.common.annotation.DataScope;
-import com.cyn.tienchin.common.constant.UserConstants;
-import com.cyn.tienchin.common.exception.ServiceException;
 import com.cyn.tienchin.common.utils.spring.SpringUtils;
 import com.cyn.tienchin.system.mapper.SysDeptMapper;
 import com.cyn.tienchin.system.mapper.SysRoleMapper;
+import com.cyn.tienchin.system.service.ISysDeptService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 部门管理 服务实现
@@ -28,6 +29,7 @@ import com.cyn.tienchin.system.mapper.SysRoleMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysDeptServiceImpl implements ISysDeptService {
     @Autowired
     private SysDeptMapper deptMapper;

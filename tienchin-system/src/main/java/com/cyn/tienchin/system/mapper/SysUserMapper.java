@@ -1,9 +1,9 @@
 package com.cyn.tienchin.system.mapper;
 
-import java.util.List;
-
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 用户表 数据层
@@ -124,4 +124,18 @@ public interface SysUserMapper {
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    /**
+     * 根据部门Id查询所对应员工信息
+     * @param deptId
+     * @return
+     */
+    List<SysUser> getUserByDeptId(@Param("deptId") Long deptId);
+
+    /**
+     * 获取所属人集合
+     * @return
+     */
+    List<String> getOwnerList();
+
 }

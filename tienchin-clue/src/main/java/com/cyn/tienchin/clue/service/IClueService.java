@@ -1,0 +1,85 @@
+package com.cyn.tienchin.clue.service;
+
+import com.cyn.tienchin.clue.domain.Clue;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.cyn.tienchin.clue.domain.vo.ClueDetails;
+import com.cyn.tienchin.clue.domain.vo.ClueSummary;
+import com.cyn.tienchin.clue.domain.vo.ClueVo;
+import com.cyn.tienchin.common.core.domain.AjaxResult;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 服务类
+ * </p>
+ *
+ * @author cyn
+ * @since 2023-07-07
+ */
+public interface IClueService extends IService<Clue> {
+
+    /**
+     * 新增线索
+     *
+     * @param clue
+     * @return
+     */
+    AjaxResult insertClue(Clue clue);
+
+    /**
+     * 查询线索概要
+     * @return
+     * @param clueVo
+     */
+    List<ClueSummary> selectClueSummaryList(ClueVo clueVo);
+
+    /**
+     * 根据线索Id获取线索信息
+     * @param clueId
+     * @return
+     */
+    AjaxResult getClueDetailsByClueId(Long clueId);
+
+    /**
+     * 更新跟进西南西
+     * @param clueDetails
+     * @return
+     */
+    AjaxResult updateClueFollow(ClueDetails clueDetails);
+
+    /**
+     * 更新 `无效线索` 信息
+     * @param clueDetails
+     * @return
+     */
+    AjaxResult updateInvalidateClueFollow(ClueDetails clueDetails);
+
+    /**
+     * 返回clueSummary对象
+     * @param clueId
+     * @return
+     */
+    AjaxResult getClueSummary(Integer clueId);
+
+    /**
+     * 更新clue
+     * @param clue
+     * @return
+     */
+    AjaxResult updateClue(Clue clue);
+
+    /**
+     * 根据id删除clue
+     * @param ids
+     * @return
+     */
+    AjaxResult deleteClueByIds(Integer[] ids);
+
+    /**
+     * 将线索转为
+     * @param clueId
+     * @return
+     */
+    AjaxResult transClue2Business(Integer clueId);
+}

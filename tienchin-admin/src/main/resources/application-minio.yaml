@@ -1,0 +1,6 @@
+minio:
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket: contract
+  endpoint: http://myvm:9000
+  read-path: http://myvm:9000

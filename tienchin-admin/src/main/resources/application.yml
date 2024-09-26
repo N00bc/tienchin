@@ -54,7 +54,7 @@ spring:
     # 国际化资源文件路径
     basename: i18n/messages
   profiles:
-    active: druid
+    active: druid,minio
   # 文件上传
   servlet:
     multipart:
@@ -129,3 +129,13 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: 2 # 逻辑已删除值(默认为 2)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+flowable:
+  async-executor-activate: false
+  database-schema-update: true
+  idm:
+    password-encoder: spring_delegating

@@ -1,34 +1,30 @@
 package com.cyn.tienchin.framework.web.service;
 
-import javax.annotation.Resource;
-
+import com.cyn.tienchin.common.constant.CacheConstants;
+import com.cyn.tienchin.common.constant.Constants;
+import com.cyn.tienchin.common.constant.UserConstants;
 import com.cyn.tienchin.common.core.domain.entity.SysUser;
 import com.cyn.tienchin.common.core.domain.model.LoginUser;
 import com.cyn.tienchin.common.core.redis.RedisCache;
+import com.cyn.tienchin.common.exception.ServiceException;
+import com.cyn.tienchin.common.exception.user.*;
 import com.cyn.tienchin.common.utils.DateUtils;
 import com.cyn.tienchin.common.utils.MessageUtils;
 import com.cyn.tienchin.common.utils.StringUtils;
 import com.cyn.tienchin.common.utils.ip.IpUtils;
+import com.cyn.tienchin.framework.manager.AsyncManager;
+import com.cyn.tienchin.framework.manager.factory.AsyncFactory;
 import com.cyn.tienchin.framework.security.context.AuthenticationContextHolder;
+import com.cyn.tienchin.system.service.ISysConfigService;
+import com.cyn.tienchin.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import com.cyn.tienchin.common.constant.CacheConstants;
-import com.cyn.tienchin.common.constant.Constants;
-import com.cyn.tienchin.common.constant.UserConstants;
-import com.cyn.tienchin.common.exception.ServiceException;
-import com.cyn.tienchin.common.exception.user.BlackListException;
-import com.cyn.tienchin.common.exception.user.CaptchaException;
-import com.cyn.tienchin.common.exception.user.CaptchaExpireException;
-import com.cyn.tienchin.common.exception.user.UserNotExistsException;
-import com.cyn.tienchin.common.exception.user.UserPasswordNotMatchException;
-import com.cyn.tienchin.framework.manager.AsyncManager;
-import com.cyn.tienchin.framework.manager.factory.AsyncFactory;
-import com.cyn.tienchin.system.service.ISysConfigService;
-import com.cyn.tienchin.system.service.ISysUserService;
+
+import javax.annotation.Resource;
 
 /**
  * 登录校验方法
@@ -69,6 +65,7 @@ public class SysLoginService {
         // 用户验证
         Authentication authentication = null;
         try {
+            // 认证用户信息
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             AuthenticationContextHolder.setContext(authenticationToken);
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
@@ -100,12 +97,14 @@ public class SysLoginService {
      * @return 结果
      */
     public void validateCaptcha(String username, String code, String uuid) {
+        // 获取验证码开关
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         if (captchaEnabled) {
             String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + StringUtils.nvl(uuid, "");
             String captcha = redisCache.getCacheObject(verifyKey);
             redisCache.deleteObject(verifyKey);
             if (captcha == null) {
+                // 开启异步任务写日志
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
                 throw new CaptchaExpireException();
             }

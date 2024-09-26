@@ -1,13 +1,14 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.List;
-
 import com.cyn.tienchin.common.core.domain.entity.SysDictData;
 import com.cyn.tienchin.common.utils.DictUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.cyn.tienchin.system.mapper.SysDictDataMapper;
 import com.cyn.tienchin.system.service.ISysDictDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 字典 业务层处理
@@ -15,6 +16,7 @@ import com.cyn.tienchin.system.service.ISysDictDataService;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysDictDataServiceImpl implements ISysDictDataService {
     @Autowired
     private SysDictDataMapper dictDataMapper;

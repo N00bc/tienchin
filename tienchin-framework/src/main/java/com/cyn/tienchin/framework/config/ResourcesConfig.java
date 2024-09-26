@@ -68,4 +68,9 @@ public class ResourcesConfig implements WebMvcConfigurer {
         // 返回新的CorsFilter
         return new CorsFilter(source);
     }
+
+    @Bean
+    CustomMethodSecurityExpressionHandler customMethodSecurityExpressionHandler() {
+        return new CustomMethodSecurityExpressionHandler();
+    }
 }

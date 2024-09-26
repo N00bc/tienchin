@@ -1,4 +1,6 @@
 ######################################################################
+# 忽略test
+test/
 # Build Tools
 
 .gradle
@@ -45,3 +47,4 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+/tienchin-admin/src/test/

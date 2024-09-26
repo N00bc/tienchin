@@ -1,12 +1,13 @@
 package com.cyn.tienchin.system.service.impl;
 
-import java.util.List;
-
+import com.cyn.tienchin.system.domain.SysOperLog;
+import com.cyn.tienchin.system.mapper.SysOperLogMapper;
 import com.cyn.tienchin.system.service.ISysOperLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cyn.tienchin.system.domain.SysOperLog;
-import com.cyn.tienchin.system.mapper.SysOperLogMapper;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 操作日志 服务层处理
@@ -14,6 +15,7 @@ import com.cyn.tienchin.system.mapper.SysOperLogMapper;
  * @author tienchin
  */
 @Service
+@Transactional
 public class SysOperLogServiceImpl implements ISysOperLogService {
     @Autowired
     private SysOperLogMapper operLogMapper;

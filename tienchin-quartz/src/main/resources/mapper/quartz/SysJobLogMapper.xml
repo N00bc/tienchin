@@ -16,7 +16,14 @@
     </resultMap>
 
     <sql id="selectJobLogVo">
-        select job_log_id, job_name, job_group, invoke_target, job_message, status, exception_info, create_time
+        select job_log_id,
+               job_name,
+               job_group,
+               invoke_target,
+               job_message,
+               status,
+               exception_info,
+               create_time
         from sys_job_log
     </sql>
 
@@ -54,7 +61,9 @@
     </select>
 
     <delete id="deleteJobLogById" parameterType="Long">
-        delete from sys_job_log where job_log_id = #{jobLogId}
+        delete
+        from sys_job_log
+        where job_log_id = #{jobLogId}
     </delete>
 
     <delete id="deleteJobLogByIds" parameterType="Long">
